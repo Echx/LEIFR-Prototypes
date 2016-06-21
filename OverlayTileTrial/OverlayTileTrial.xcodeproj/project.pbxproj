@@ -14,6 +14,7 @@
 		0C1F54DE1D19095C00B59C97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C1F54DD1D19095C00B59C97 /* Assets.xcassets */; };
 		0C1F54E11D19095C00B59C97 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C1F54DF1D19095C00B59C97 /* LaunchScreen.storyboard */; };
 		0C1F54E91D190DFB00B59C97 /* MapBoxTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F54E81D190DFB00B59C97 /* MapBoxTileOverlay.swift */; };
+		0C1F54EB1D1922C200B59C97 /* OverlayTileRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F54EA1D1922C200B59C97 /* OverlayTileRenderer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		0C1F54E01D19095C00B59C97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0C1F54E21D19095C00B59C97 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C1F54E81D190DFB00B59C97 /* MapBoxTileOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapBoxTileOverlay.swift; sourceTree = "<group>"; };
+		0C1F54EA1D1922C200B59C97 /* OverlayTileRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayTileRenderer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				0C1F54E21D19095C00B59C97 /* Info.plist */,
 				0C1F54DA1D19095C00B59C97 /* OverlayTileTrial.xcdatamodeld */,
 				0C1F54E81D190DFB00B59C97 /* MapBoxTileOverlay.swift */,
+				0C1F54EA1D1922C200B59C97 /* OverlayTileRenderer.swift */,
 			);
 			path = OverlayTileTrial;
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 			files = (
 				0C1F54D61D19095C00B59C97 /* ViewController.swift in Sources */,
 				0C1F54E91D190DFB00B59C97 /* MapBoxTileOverlay.swift in Sources */,
+				0C1F54EB1D1922C200B59C97 /* OverlayTileRenderer.swift in Sources */,
 				0C1F54DC1D19095C00B59C97 /* OverlayTileTrial.xcdatamodeld in Sources */,
 				0C1F54D41D19095C00B59C97 /* AppDelegate.swift in Sources */,
 			);
