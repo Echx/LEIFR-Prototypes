@@ -1,0 +1,399 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5B153E0688A394EF21896740 /* Pods_TrailTrialMapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8F577DAA24BD7958630E82 /* Pods_TrailTrialMapbox.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		622B42201D19C83F005B1F29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622B421F1D19C83F005B1F29 /* AppDelegate.swift */; };
+		622B42221D19C83F005B1F29 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622B42211D19C83F005B1F29 /* ViewController.swift */; };
+		622B42251D19C83F005B1F29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 622B42231D19C83F005B1F29 /* Main.storyboard */; };
+		622B42271D19C83F005B1F29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 622B42261D19C83F005B1F29 /* Assets.xcassets */; };
+		622B422A1D19C83F005B1F29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 622B42281D19C83F005B1F29 /* LaunchScreen.storyboard */; };
+		6260D02E1D19CD160092CA88 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6260D02D1D19CD160092CA88 /* Mapbox.framework */; };
+		6260D02F1D19CD160092CA88 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6260D02D1D19CD160092CA88 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6260D0301D19CD160092CA88 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6260D02F1D19CD160092CA88 /* Mapbox.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		591607B25E576D118FE168F1 /* Pods-TrailTrialMapbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrailTrialMapbox.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrailTrialMapbox/Pods-TrailTrialMapbox.release.xcconfig"; sourceTree = "<group>"; };
+		622B421C1D19C83F005B1F29 /* TrailTrialMapbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrailTrialMapbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		622B421F1D19C83F005B1F29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		622B42211D19C83F005B1F29 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		622B42241D19C83F005B1F29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		622B42261D19C83F005B1F29 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		622B42291D19C83F005B1F29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		622B422B1D19C83F005B1F29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6260D02D1D19CD160092CA88 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mapbox.framework; path = "Pods/Mapbox-iOS-SDK/dynamic/Mapbox.framework"; sourceTree = "<group>"; };
+		8B8F577DAA24BD7958630E82 /* Pods_TrailTrialMapbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrailTrialMapbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4EAE3526C6DAE9CDFB8DFE2 /* Pods-TrailTrialMapbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrailTrialMapbox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrailTrialMapbox/Pods-TrailTrialMapbox.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		622B42191D19C83F005B1F29 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B153E0688A394EF21896740 /* Pods_TrailTrialMapbox.framework in Frameworks */,
+				6260D02E1D19CD160092CA88 /* Mapbox.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		26A9D69CF31A4F9D3653B9D0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8B8F577DAA24BD7958630E82 /* Pods_TrailTrialMapbox.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		622B42131D19C83F005B1F29 = {
+			isa = PBXGroup;
+			children = (
+				6260D02D1D19CD160092CA88 /* Mapbox.framework */,
+				622B421E1D19C83F005B1F29 /* TrailTrialMapbox */,
+				622B421D1D19C83F005B1F29 /* Products */,
+				97269F2A64DF47A5A887202E /* Pods */,
+				26A9D69CF31A4F9D3653B9D0 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		622B421D1D19C83F005B1F29 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				622B421C1D19C83F005B1F29 /* TrailTrialMapbox.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		622B421E1D19C83F005B1F29 /* TrailTrialMapbox */ = {
+			isa = PBXGroup;
+			children = (
+				622B421F1D19C83F005B1F29 /* AppDelegate.swift */,
+				622B42211D19C83F005B1F29 /* ViewController.swift */,
+				622B42231D19C83F005B1F29 /* Main.storyboard */,
+				622B42261D19C83F005B1F29 /* Assets.xcassets */,
+				622B42281D19C83F005B1F29 /* LaunchScreen.storyboard */,
+				622B422B1D19C83F005B1F29 /* Info.plist */,
+			);
+			path = TrailTrialMapbox;
+			sourceTree = "<group>";
+		};
+		97269F2A64DF47A5A887202E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B4EAE3526C6DAE9CDFB8DFE2 /* Pods-TrailTrialMapbox.debug.xcconfig */,
+				591607B25E576D118FE168F1 /* Pods-TrailTrialMapbox.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		622B421B1D19C83F005B1F29 /* TrailTrialMapbox */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 622B422E1D19C83F005B1F29 /* Build configuration list for PBXNativeTarget "TrailTrialMapbox" */;
+			buildPhases = (
+				3B506153B250889B75C98E75 /* Check Pods Manifest.lock */,
+				622B42181D19C83F005B1F29 /* Sources */,
+				622B42191D19C83F005B1F29 /* Frameworks */,
+				622B421A1D19C83F005B1F29 /* Resources */,
+				E97F5CFAD60DCE7D7F0F6FB5 /* Embed Pods Frameworks */,
+				3FAC800CA53722BB7209FB3D /* Copy Pods Resources */,
+				6260D0301D19CD160092CA88 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TrailTrialMapbox;
+			productName = TrailTrialMapbox;
+			productReference = 622B421C1D19C83F005B1F29 /* TrailTrialMapbox.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		622B42141D19C83F005B1F29 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Echx;
+				TargetAttributes = {
+					622B421B1D19C83F005B1F29 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 622B42171D19C83F005B1F29 /* Build configuration list for PBXProject "TrailTrialMapbox" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 622B42131D19C83F005B1F29;
+			productRefGroup = 622B421D1D19C83F005B1F29 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				622B421B1D19C83F005B1F29 /* TrailTrialMapbox */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		622B421A1D19C83F005B1F29 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				622B422A1D19C83F005B1F29 /* LaunchScreen.storyboard in Resources */,
+				622B42271D19C83F005B1F29 /* Assets.xcassets in Resources */,
+				622B42251D19C83F005B1F29 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3B506153B250889B75C98E75 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		3FAC800CA53722BB7209FB3D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TrailTrialMapbox/Pods-TrailTrialMapbox-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E97F5CFAD60DCE7D7F0F6FB5 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TrailTrialMapbox/Pods-TrailTrialMapbox-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		622B42181D19C83F005B1F29 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				622B42221D19C83F005B1F29 /* ViewController.swift in Sources */,
+				622B42201D19C83F005B1F29 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		622B42231D19C83F005B1F29 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				622B42241D19C83F005B1F29 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		622B42281D19C83F005B1F29 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				622B42291D19C83F005B1F29 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		622B422C1D19C83F005B1F29 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		622B422D1D19C83F005B1F29 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		622B422F1D19C83F005B1F29 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B4EAE3526C6DAE9CDFB8DFE2 /* Pods-TrailTrialMapbox.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/Mapbox-iOS-SDK/dynamic",
+				);
+				INFOPLIST_FILE = TrailTrialMapbox/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.echx.TrailTrialMapbox;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		622B42301D19C83F005B1F29 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 591607B25E576D118FE168F1 /* Pods-TrailTrialMapbox.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/Mapbox-iOS-SDK/dynamic",
+				);
+				INFOPLIST_FILE = TrailTrialMapbox/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.echx.TrailTrialMapbox;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		622B42171D19C83F005B1F29 /* Build configuration list for PBXProject "TrailTrialMapbox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				622B422C1D19C83F005B1F29 /* Debug */,
+				622B422D1D19C83F005B1F29 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		622B422E1D19C83F005B1F29 /* Build configuration list for PBXNativeTarget "TrailTrialMapbox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				622B422F1D19C83F005B1F29 /* Debug */,
+				622B42301D19C83F005B1F29 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 622B42141D19C83F005B1F29 /* Project object */;
+}
