@@ -13,8 +13,6 @@
 		0C1F54DC1D19095C00B59C97 /* OverlayTileTrial.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F54DA1D19095C00B59C97 /* OverlayTileTrial.xcdatamodeld */; };
 		0C1F54DE1D19095C00B59C97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C1F54DD1D19095C00B59C97 /* Assets.xcassets */; };
 		0C1F54E11D19095C00B59C97 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C1F54DF1D19095C00B59C97 /* LaunchScreen.storyboard */; };
-		0C1F54E91D190DFB00B59C97 /* FogTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F54E81D190DFB00B59C97 /* FogTileOverlay.swift */; };
-		0C1F54EB1D1922C200B59C97 /* OverlayTileRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F54EA1D1922C200B59C97 /* OverlayTileRenderer.swift */; };
 		0C1F54F51D194CDF00B59C97 /* MapPoint+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F54F31D194CDF00B59C97 /* MapPoint+CoreDataProperties.swift */; };
 		0C1F54F61D194CDF00B59C97 /* MapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F54F41D194CDF00B59C97 /* MapPoint.swift */; };
 		0C1F54F81D1975DC00B59C97 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F54F71D1975DC00B59C97 /* CoreDataManager.swift */; };
@@ -29,8 +27,6 @@
 		0C1F54DD1D19095C00B59C97 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0C1F54E01D19095C00B59C97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0C1F54E21D19095C00B59C97 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0C1F54E81D190DFB00B59C97 /* FogTileOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FogTileOverlay.swift; sourceTree = "<group>"; };
-		0C1F54EA1D1922C200B59C97 /* OverlayTileRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayTileRenderer.swift; sourceTree = "<group>"; };
 		0C1F54EC1D194CC900B59C97 /* OverlayTileTrial-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OverlayTileTrial-Bridging-Header.h"; sourceTree = "<group>"; };
 		0C1F54F31D194CDF00B59C97 /* MapPoint+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MapPoint+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0C1F54F41D194CDF00B59C97 /* MapPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPoint.swift; sourceTree = "<group>"; };
@@ -77,8 +73,6 @@
 				0C1F54DF1D19095C00B59C97 /* LaunchScreen.storyboard */,
 				0C1F54E21D19095C00B59C97 /* Info.plist */,
 				0C1F54DA1D19095C00B59C97 /* OverlayTileTrial.xcdatamodeld */,
-				0C1F54E81D190DFB00B59C97 /* FogTileOverlay.swift */,
-				0C1F54EA1D1922C200B59C97 /* OverlayTileRenderer.swift */,
 				0C1F54F71D1975DC00B59C97 /* CoreDataManager.swift */,
 			);
 			path = OverlayTileTrial;
@@ -157,8 +151,6 @@
 			files = (
 				0C1F54D61D19095C00B59C97 /* ViewController.swift in Sources */,
 				0C1F54F61D194CDF00B59C97 /* MapPoint.swift in Sources */,
-				0C1F54E91D190DFB00B59C97 /* FogTileOverlay.swift in Sources */,
-				0C1F54EB1D1922C200B59C97 /* OverlayTileRenderer.swift in Sources */,
 				0C1F54F51D194CDF00B59C97 /* MapPoint+CoreDataProperties.swift in Sources */,
 				0C1F54DC1D19095C00B59C97 /* OverlayTileTrial.xcdatamodeld in Sources */,
 				0C1F54F81D1975DC00B59C97 /* CoreDataManager.swift in Sources */,
@@ -319,6 +311,7 @@
 				0C1F54E71D19095C00B59C97 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

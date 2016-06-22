@@ -36,10 +36,10 @@ class ViewController: UIViewController {
 		manager.startUpdatingLocation()
 		manager.delegate = self
 		
-//		mapView.showsUserLocation = true
+		mapView.showsUserLocation = true
 		
-//		let urlTemplateString = "https://api.mapbox.com/v4/mapbox.dark/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibnVsbDA5MjY0IiwiYSI6ImNpcG01b2Z2bjAwMGp1ZG03YTkzcXNkMjkifQ.z2KU_Qb8SxhlALWHgLwf2A"
-		self.overlay = FogTileOverlay()
+		let urlTemplateString = "https://api.mapbox.com/v4/mapbox.dark/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibnVsbDA5MjY0IiwiYSI6ImNpcG01b2Z2bjAwMGp1ZG03YTkzcXNkMjkifQ.z2KU_Qb8SxhlALWHgLwf2A"
+		self.overlay = MKTileOverlay(URLTemplate: urlTemplateString)
 		mapView.addOverlay(overlay)
 	}
 

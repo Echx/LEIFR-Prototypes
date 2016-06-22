@@ -16,9 +16,7 @@ class CoreDataManager: NSObject {
 		return (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 	}
 	
-	class func mapPointsForTileAtPath(path: MKTileOverlayPath, handler: ([MKMapPoint]) -> Void) {
-		let mapRect = OverlayTileRenderer.mapRectForTilePath(path)
-		
+	class func mapPointsForMapRect(mapRect: MKMapRect, handler: ([MKMapPoint]) -> Void) {
 		let fetchRequest = NSFetchRequest()
 		
 		let entity = NSEntityDescription.entityForName("MapPoint", inManagedObjectContext: self.managedObjectContext())
