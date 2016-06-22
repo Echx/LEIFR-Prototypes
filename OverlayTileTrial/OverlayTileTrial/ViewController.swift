@@ -12,6 +12,7 @@ import MapKit
 class ViewController: UIViewController {
 	
 	@IBOutlet var mapView: MKMapView!
+	var manager: CLLocationManager!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -28,14 +29,27 @@ class ViewController: UIViewController {
 	private func configureMapView() {
 		mapView.delegate = self
 		
-		let urlTemplateString = "https://api.mapbox.com/v4/mapbox.light/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoibnVsbDA5MjY0IiwiYSI6ImNpcG01b2Z2bjAwMGp1ZG03YTkzcXNkMjkifQ.z2KU_Qb8SxhlALWHgLwf2A"
-		let tileOverlay = MapBoxTileOverlay(URLTemplate: urlTemplateString)
+		manager = CLLocationManager()
+		manager.requestAlwaysAuthorization()
+		manager.startUpdatingLocation()
+		manager.delegate = self
 		
-		tileOverlay.canReplaceMapContent = true
-		tileOverlay.tileSize = CGSizeMake(512, 512)
+//		mapView.showsUserLocation = true
+		
+//		let urlTemplateString = "https://api.mapbox.com/v4/mapbox.dark/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibnVsbDA5MjY0IiwiYSI6ImNpcG01b2Z2bjAwMGp1ZG03YTkzcXNkMjkifQ.z2KU_Qb8SxhlALWHgLwf2A"
+		let tileOverlay = FogTileOverlay()
 		mapView.addOverlay(tileOverlay)
 	}
 
+}
+
+extension ViewController: CLLocationManagerDelegate {
+	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
+		let coordinate = newLocation.coordinate
+		let mapPoint = MKMapPoint(x: coordinate.longitude, y: coordinate.latitude)
+		print(mapPoint)
+		CoreDataManager.savePoint(mapPoint, withZoomLevel: 0)
+	}
 }
 
 extension ViewController: MKMapViewDelegate {

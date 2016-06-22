@@ -10,33 +10,53 @@ import UIKit
 import MapKit
 
 class OverlayTileRenderer: NSObject {
-	private func mapRectForTilePath(path: MKTileOverlayPath) -> MKMapRect {
+	class func mapRectForTilePath(path: MKTileOverlayPath) -> MKMapRect {
 		let zoomLevel: Double = Double(path.z)
 		
 		let spanIndex = pow(2, zoomLevel)
 		let xSpan = 360 / spanIndex
-		let ySpan = 170.1022 / spanIndex
 		
-		let xOrigin = xSpan * Double(path.x)
-		let yOrigin = ySpan * Double(path.y)
+		let xOrigin = xSpan * Double(path.x) - 180
 		
-		return MKMapRectMake(xOrigin, yOrigin, xSpan, ySpan)
+		let n = M_PI - 2 * M_PI * Double(path.y) / spanIndex
+		let yOrigin = 180 / M_PI * atan(sinh(n))
+		
+		let m = M_PI - 2 * M_PI * Double(path.y + 1) / spanIndex
+		let nextYOrigin = 180 / M_PI * atan(sinh(m))
+		
+		return MKMapRectMake(xOrigin, nextYOrigin, xSpan, abs(nextYOrigin - yOrigin))
 	}
 	
-	private func normalizedPointForMapPoint(point: MKMapPoint, inMapRect mapRect: MKMapRect) -> CGPoint {
-		let x = (point.x - mapRect.origin.x) / mapRect.size.width
-		let y = point.y - mapRect.origin.y / mapRect.size.height
+	class func worldCoordinateForMapPoint(mapPoint: MKMapPoint) -> CGPoint {
+		let long = mapPoint.x
+		let lat = mapPoint.y
 		
-		return CGPointMake(CGFloat(x), CGFloat(y));
+		var siny = sin(lat * M_PI / 180)
+		siny = min(max(siny, -0.9999), 0.9999)
+		
+		let x = 0.5 + long / 360
+		let y = 0.5 - log((1 + siny) / (1 - siny)) / (4 * M_PI)
+		
+		return CGPointMake(CGFloat(x), CGFloat(y))
 	}
 	
-	func tileImageWithNormalizedPoints(points: [CGPoint], sideLength length: CGFloat, andScale scale: CGFloat) -> UIImage {
+	class func pixelCooredinateForMapPoint(mapPoint: MKMapPoint, tileSideLength: CGFloat, inTileAtPath tilePath: MKTileOverlayPath) -> CGPoint {
+		
+		let scale = pow(2, CGFloat(tilePath.z))
+		let worldCoordinate = worldCoordinateForMapPoint(mapPoint)
+		let x = floor(worldCoordinate.x * scale * tileSideLength) % tileSideLength
+		let y = floor(worldCoordinate.y * scale * tileSideLength) % tileSideLength
+		
+		return CGPointMake(x, y)
+	}
+	
+	class func tileImageForMapPoints(mapPoints: [MKMapPoint], sideLength length: CGFloat, Scale scale: CGFloat, andTilePath path: MKTileOverlayPath) -> UIImage {
 		
 		let imageSize = CGSizeMake(length, length)
 		UIGraphicsBeginImageContextWithOptions(imageSize, false, scale)
 		
-		for point in points {
-			let realPoint = CGPointMake(length * point.x, length * point.y)
+		for point in mapPoints {
+			let realPoint = pixelCooredinateForMapPoint(point, tileSideLength: length, inTileAtPath: path)
 			let pointCurve = UIBezierPath(arcCenter: realPoint, radius: 3, startAngle: 0, endAngle: CGFloat(M_PI * 2), clockwise: true)
 			UIColor.redColor().setFill()
 			pointCurve.fill()
@@ -48,15 +68,13 @@ class OverlayTileRenderer: NSObject {
 		return image
 	}
 	
-	func imageDataForTileWithPath(path: MKTileOverlayPath, andPoints mapPoints: [MKMapPoint]) -> NSData? {
+	class func imageDataForTileWithPath(path: MKTileOverlayPath, andPoints mapPoints: [MKMapPoint]) -> NSData? {
 		
-		let mapRect = mapRectForTilePath(path)
-		let normalizedPoints = mapPoints.map({
-			point in
-			return normalizedPointForMapPoint(point, inMapRect: mapRect)
-		})
+		if mapPoints.count == 0 {
+			return nil
+		}
 		
-		let image = tileImageWithNormalizedPoints(normalizedPoints, sideLength: 128, andScale: UIScreen.mainScreen().scale)
+		let image = tileImageForMapPoints(mapPoints, sideLength: 128, Scale: UIScreen.mainScreen().scale, andTilePath: path)
 		
 		return UIImagePNGRepresentation(image)
 	}

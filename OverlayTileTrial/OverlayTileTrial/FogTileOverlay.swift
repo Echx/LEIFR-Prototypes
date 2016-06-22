@@ -1,5 +1,5 @@
 //
-//  MapBoxTileOverlay.swift
+//  FogTileOverlay.swift
 //  OverlayTileTrial
 //
 //  Created by Jinghan Wang on 21/6/16.
@@ -9,16 +9,22 @@
 import UIKit
 import MapKit
 
-class MapBoxTileOverlay: MKTileOverlay {
+class FogTileOverlay: MKTileOverlay {
 	override func loadTileAtPath(path: MKTileOverlayPath, result: (NSData?, NSError?) -> Void) {
-		super.loadTileAtPath(path, result: result)
+		CoreDataManager.mapPointsForTileAtPath(path, handler: {
+			points in
+			let data = OverlayTileRenderer.imageDataForTileWithPath(path, andPoints: points)
+			
+			if data != nil {
+				let image = UIImage(data: data!)
+			}
+			
+			result(data, nil)
+		})
 	}
 	
 	override func URLForTilePath(path: MKTileOverlayPath) -> NSURL {
 		let url = super.URLForTilePath(path)
-		print(path)
-		print(url)
-		print(" ")
 		return url
 	}
 }
