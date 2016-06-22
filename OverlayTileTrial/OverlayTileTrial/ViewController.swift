@@ -47,14 +47,25 @@ extension ViewController: CLLocationManagerDelegate {
 	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
 		let coordinate = newLocation.coordinate
 		let mapPoint = MKMapPoint(x: coordinate.longitude, y: coordinate.latitude)
-		print(mapPoint)
 		CoreDataManager.savePoint(mapPoint, withZoomLevel: 0)
+		
 	}
 }
 
 extension ViewController: MKMapViewDelegate {
 	func mapView(mapView: MKMapView, rendererForOverlay overlay:
 		MKOverlay) -> MKOverlayRenderer {
-		return MKTileOverlayRenderer(overlay:overlay)
+		let renderer = MKTileOverlayRenderer(overlay:overlay)
+		renderer.reloadData()
+		return renderer
 	}
 }
+
+
+
+
+
+
+
+
+

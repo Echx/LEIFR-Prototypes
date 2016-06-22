@@ -33,10 +33,6 @@ class CoreDataManager: NSObject {
 				return (point as! MapPoint).mapPoint()
 			})
 			
-			if points.count != 0 {
-				print(points)
-			}
-			
 			handler(points)
 			
 		} else {
