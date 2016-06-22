@@ -14,11 +14,6 @@ class FogTileOverlay: MKTileOverlay {
 		CoreDataManager.mapPointsForTileAtPath(path, handler: {
 			points in
 			let data = OverlayTileRenderer.imageDataForTileWithPath(path, andPoints: points)
-			
-			if data != nil {
-				let image = UIImage(data: data!)
-			}
-			
 			result(data, nil)
 		})
 	}
