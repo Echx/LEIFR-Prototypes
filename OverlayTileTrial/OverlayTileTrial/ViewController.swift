@@ -50,14 +50,6 @@ extension ViewController: CLLocationManagerDelegate {
 		let coordinate = newLocation.coordinate
 		let mapPoint = MKMapPoint(x: coordinate.longitude, y: coordinate.latitude)
 		CoreDataManager.savePoint(mapPoint, withZoomLevel: 0)
-		self.overlayRenderer.reloadData();
-		
-		let span = MKCoordinateSpan(latitudeDelta: 0.03,
-		                            longitudeDelta: 0.03)
-		
-		let region = MKCoordinateRegion(center: coordinate, span: span)
-		self.mapView.setRegion(region, animated: true)
-		self.mapView.regionThatFits(region)
 	}
 }
 
@@ -67,6 +59,14 @@ extension ViewController: MKMapViewDelegate {
 		let renderer = MKTileOverlayRenderer(overlay:overlay)
 		self.overlayRenderer = renderer
 		return renderer
+	}
+	
+	func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+		CoreDataManager.mapPointForRegion(mapView.region, handler: {
+			points in
+			
+			print(points.count)
+		})
 	}
 }
 
