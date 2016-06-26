@@ -45,7 +45,7 @@ class ViewController: UIViewController, MGLMapViewDelegate {
 	func startOfflinePackDownload() {
 		// Create a region that includes the current viewport and any tiles needed to view it when zoomed further in.
 		// Because tile count grows exponentially with the maximum zoom level, you should be conservative with your `toZoomLevel` setting.
-		let region = MGLTilePyramidOfflineRegion(styleURL: mapView.styleURL, bounds: mapView.visibleCoordinateBounds, fromZoomLevel: 0, toZoomLevel: 19)
+		let region = MGLTilePyramidOfflineRegion(styleURL: mapView.styleURL, bounds: mapView.visibleCoordinateBounds, fromZoomLevel: 0, toZoomLevel: 14)
 		
 		// Store some data for identification purposes alongside the downloaded resources.
 		let userInfo = ["name": "My Offline Pack"]
@@ -117,8 +117,8 @@ class ViewController: UIViewController, MGLMapViewDelegate {
 		}
 	}
 	
-	func mapView(mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
-		
+	func refreshMap() {
+		let mapView = self.mapView
 		CoreDataManager.pointsForRegionWithVisibleCoordinateBounds(mapView.visibleCoordinateBounds, andZoom: Int(floor(mapView.zoomLevel)), andHandler: {
 			points in
 			
@@ -141,17 +141,41 @@ class ViewController: UIViewController, MGLMapViewDelegate {
 					}
 					
 					if !contains {
-						mapView.removeAnnotation(annotation)
+						dispatch_async(dispatch_get_main_queue(), {
+							mapView.removeAnnotation(annotation)
+						});
 					}
 				}
 			}
 			
 			for annotation in annotations {
-				if !self.annotations.contains(annotation) {
-					mapView.addAnnotations([annotation])
+				var contains = false
+				if let originalAnnotations = mapView.annotations {
+					for a in originalAnnotations {
+						if a.coordinate.latitude == annotation.coordinate.latitude &&
+							a.coordinate.longitude == annotation.coordinate.longitude {
+							contains = true
+							break
+						}
+					}
+				}
+				
+				if !contains {
+					dispatch_async(dispatch_get_main_queue(), {
+						mapView.addAnnotations([annotation])
+					});
 				}
 			}
 		})
+	}
+	
+	func mapView(mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
+		
+	}
+	
+	func mapView(mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
+		refreshMap()
+		print(mapView.annotations?.count)
 	}
 	
 	func mapView(mapView: MGLMapView, imageForAnnotation annotation: MGLAnnotation) -> MGLAnnotationImage? {

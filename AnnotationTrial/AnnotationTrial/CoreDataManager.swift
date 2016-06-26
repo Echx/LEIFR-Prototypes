@@ -96,7 +96,6 @@ class CoreDataManager: NSObject {
 		flatPoint.longitude = coordinate.longitude
 		flatPoint.visibleZoom = zoomLevel
 		
-		var successful = try? flatPoint.managedObjectContext?.save()
-		
+		_ = try? flatPoint.managedObjectContext?.save()	
 	}
 }
