@@ -67,7 +67,7 @@ class CoreDataManager: NSObject {
 		var compoundPredicate = NSPredicate(value: false)
 		for zoom in 0...19 {
 			let s = neglectableSpan[zoom]
-			let currentPredicate = NSPredicate(format: "longitude > %lf AND longitude < %lf AND latitude > %lf AND latitude < %lf AND visibleZoom > %ld", long - s, long + s, lat - s, lat + s, zoom)
+			let currentPredicate = NSPredicate(format: "longitude > %lf AND longitude < %lf AND latitude > %lf AND latitude < %lf AND visibleZoom == %ld", long - s, long + s, lat - s, lat + s, zoom)
 			compoundPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [compoundPredicate, currentPredicate])
 		}
 		fetchRequest.predicate = compoundPredicate
