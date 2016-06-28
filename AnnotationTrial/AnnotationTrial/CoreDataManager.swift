@@ -8,6 +8,7 @@
 
 import Mapbox
 import CoreData
+import MapKit
 
 class CoreDataManager: NSObject {
 	
@@ -25,6 +26,36 @@ class CoreDataManager: NSObject {
 	
 	class func managedObjectContext() -> NSManagedObjectContext {
 		return (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+	}
+	
+	class func pointsForTileAtPath(path: MKTileOverlayPath, andHandler handler:([FlatPoint] -> Void)) {
+		let region = FogOverlayRenderer.regionForTilePath(path)
+		let minLon = region.center.longitude - region.span.longitudeDelta / 2
+		let minLat = region.center.latitude - region.span.latitudeDelta / 2
+		let maxLon = region.center.longitude + region.span.longitudeDelta / 2
+		let maxLat = region.center.latitude + region.span.latitudeDelta / 2
+		let zoom = path.z
+		
+		
+		let fetchRequest = NSFetchRequest()
+		
+		let entity = NSEntityDescription.entityForName("FlatPoint", inManagedObjectContext: self.managedObjectContext())
+		fetchRequest.entity = entity
+		
+		let predicate = NSPredicate(format: "longitude > %lf AND longitude < %lf AND latitude > %lf AND latitude < %lf AND visibleZoom < %ld", minLon, maxLon, minLat, maxLat, zoom)
+		fetchRequest.predicate = predicate
+		
+		if let results = try? self.managedObjectContext().executeFetchRequest(fetchRequest) {
+			let points = results.map({
+				point in
+				return point as! FlatPoint
+			})
+			
+			handler(points)
+			
+		} else {
+			handler([])
+		}
 	}
 	
 	class func pointsForRegionWithVisibleCoordinateBounds(bounds: MGLCoordinateBounds, andZoom zoom: Int, andHandler handler: ([FlatPoint]) -> Void) {

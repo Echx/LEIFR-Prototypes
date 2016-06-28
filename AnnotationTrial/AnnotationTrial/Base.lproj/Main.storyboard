@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mBH-x2-3O7">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -8,7 +8,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="AnnotationTrial" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="0" id="BYZ-38-t0r" customClass="ViewController" customModule="AnnotationTrial" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -34,6 +34,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="292" y="339"/>
+        </scene>
+        <!--Overlay Tile View Controller-->
+        <scene sceneID="RTJ-PA-tbl">
+            <objects>
+                <viewController storyboardIdentifier="1" id="mBH-x2-3O7" customClass="OverlayTileViewController" customModule="AnnotationTrial" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jXj-dX-ciW"/>
+                        <viewControllerLayoutGuide type="bottom" id="XCn-EU-LgB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0Xs-GJ-9pX">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Of8-vf-kaj">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Of8-vf-kaj" secondAttribute="trailing" id="IlT-Ww-Um9"/>
+                            <constraint firstItem="Of8-vf-kaj" firstAttribute="top" secondItem="0Xs-GJ-9pX" secondAttribute="top" id="kH5-T8-FZA"/>
+                            <constraint firstItem="Of8-vf-kaj" firstAttribute="leading" secondItem="0Xs-GJ-9pX" secondAttribute="leading" id="oBz-9n-p3t"/>
+                            <constraint firstItem="XCn-EU-LgB" firstAttribute="top" secondItem="Of8-vf-kaj" secondAttribute="bottom" id="qWx-GU-blN"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="Of8-vf-kaj" id="DtH-gk-BDC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mGA-JS-877" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
 </document>

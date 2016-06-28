@@ -19,6 +19,10 @@
 		0C601FBC1D1FB67B00F16C29 /* FlatPoint+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C601FBA1D1FB67B00F16C29 /* FlatPoint+CoreDataProperties.swift */; };
 		0C601FBD1D1FB67B00F16C29 /* FlatPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C601FBB1D1FB67B00F16C29 /* FlatPoint.swift */; };
 		0C601FBF1D1FD34C00F16C29 /* ATPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C601FBE1D1FD34C00F16C29 /* ATPointAnnotation.swift */; };
+		0C601FC11D21793600F16C29 /* OverlayTileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C601FC01D21793600F16C29 /* OverlayTileViewController.swift */; };
+		0C601FC31D2179A300F16C29 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C601FC21D2179A300F16C29 /* MapKit.framework */; };
+		0C601FC51D217EDB00F16C29 /* FogTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C601FC41D217EDB00F16C29 /* FogTileOverlay.swift */; };
+		0C601FC71D217F8400F16C29 /* FogOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C601FC61D217F8400F16C29 /* FogOverlayRenderer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -49,6 +53,10 @@
 		0C601FBA1D1FB67B00F16C29 /* FlatPoint+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "FlatPoint+CoreDataProperties.swift"; path = "AnnotationTrial/FlatPoint+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0C601FBB1D1FB67B00F16C29 /* FlatPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlatPoint.swift; path = AnnotationTrial/FlatPoint.swift; sourceTree = "<group>"; };
 		0C601FBE1D1FD34C00F16C29 /* ATPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATPointAnnotation.swift; sourceTree = "<group>"; };
+		0C601FC01D21793600F16C29 /* OverlayTileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayTileViewController.swift; sourceTree = "<group>"; };
+		0C601FC21D2179A300F16C29 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		0C601FC41D217EDB00F16C29 /* FogTileOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FogTileOverlay.swift; sourceTree = "<group>"; };
+		0C601FC61D217F8400F16C29 /* FogOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FogOverlayRenderer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C601FC31D2179A300F16C29 /* MapKit.framework in Frameworks */,
 				0C2B67941D1EDE7B000A505F /* Mapbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -66,6 +75,7 @@
 		0C2B67721D1EDE54000A505F = {
 			isa = PBXGroup;
 			children = (
+				0C601FC21D2179A300F16C29 /* MapKit.framework */,
 				0C601FBA1D1FB67B00F16C29 /* FlatPoint+CoreDataProperties.swift */,
 				0C601FBB1D1FB67B00F16C29 /* FlatPoint.swift */,
 				0C2B67931D1EDE7B000A505F /* Mapbox.framework */,
@@ -94,6 +104,9 @@
 				0C2B67851D1EDE55000A505F /* AnnotationTrial.xcdatamodeld */,
 				0C601FB81D1FB62200F16C29 /* CoreDataManager.swift */,
 				0C601FBE1D1FD34C00F16C29 /* ATPointAnnotation.swift */,
+				0C601FC01D21793600F16C29 /* OverlayTileViewController.swift */,
+				0C601FC41D217EDB00F16C29 /* FogTileOverlay.swift */,
+				0C601FC61D217F8400F16C29 /* FogOverlayRenderer.swift */,
 			);
 			path = AnnotationTrial;
 			sourceTree = "<group>";
@@ -171,9 +184,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C2B67811D1EDE55000A505F /* ViewController.swift in Sources */,
+				0C601FC51D217EDB00F16C29 /* FogTileOverlay.swift in Sources */,
+				0C601FC11D21793600F16C29 /* OverlayTileViewController.swift in Sources */,
 				0C2B677F1D1EDE55000A505F /* AppDelegate.swift in Sources */,
 				0C601FB91D1FB62200F16C29 /* CoreDataManager.swift in Sources */,
 				0C601FBC1D1FB67B00F16C29 /* FlatPoint+CoreDataProperties.swift in Sources */,
+				0C601FC71D217F8400F16C29 /* FogOverlayRenderer.swift in Sources */,
 				0C601FBF1D1FD34C00F16C29 /* ATPointAnnotation.swift in Sources */,
 				0C2B67871D1EDE55000A505F /* AnnotationTrial.xcdatamodeld in Sources */,
 				0C601FBD1D1FB67B00F16C29 /* FlatPoint.swift in Sources */,
