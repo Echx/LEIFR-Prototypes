@@ -46,8 +46,12 @@ extension OverlayTileViewController: CLLocationManagerDelegate {
 		let coordinate = newLocation.coordinate
 		CoreDataManager.savePointForCoordinate(coordinate)
 
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.25 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
-//			self.overlayRenderer.reloadData()
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
+			
+			let mapPoint = MKMapPointForCoordinate(coordinate)
+			let mapRect = MKMapRectMake(mapPoint.x - 512, mapPoint.y - 512, 1024, 1024)
+			
+			self.overlayRenderer.setNeedsDisplayInMapRect(mapRect)
 		})
 	}
 }

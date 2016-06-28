@@ -11,18 +11,20 @@ import MapKit
 class FogOverlayRenderer {
 	
 	class func regionForTilePath(path: MKTileOverlayPath) -> MKCoordinateRegion {
+		return MKCoordinateRegionForMapRect(self.mapRectForTilePath(path))
+	}
+	
+	class func mapRectForTilePath(path: MKTileOverlayPath) -> MKMapRect {
 		let sideLength = 1 << (28 - path.z)
 		let mapRect = MKMapRectMake(Double(sideLength * path.x), Double(sideLength * path.y), Double(sideLength), Double(sideLength))
-		return MKCoordinateRegionForMapRect(mapRect)
+		return mapRect
 	}
 	
 	class func pixelCooredinateForLocationCoordinate(coordinate: CLLocationCoordinate2D, tileSideLength: CGFloat, inTileAtPath path: MKTileOverlayPath) -> CGPoint {
-		
 		let mapPoint = MKMapPointForCoordinate(coordinate)
-		
-		let tileSideLengthUnit = 1 << (28 - path.z)
-		let x = CGFloat(Int(mapPoint.x) % tileSideLengthUnit) / CGFloat(tileSideLengthUnit) * tileSideLength
-		let y = CGFloat(Int(mapPoint.y) % tileSideLengthUnit) / CGFloat(tileSideLengthUnit) * tileSideLength
+		let mapRect = self.mapRectForTilePath(path)
+		let x = CGFloat((mapPoint.x - mapRect.origin.x) / mapRect.size.width) * tileSideLength
+		let y = CGFloat((mapPoint.y - mapRect.origin.y) / mapRect.size.height) * tileSideLength
 		
 		return CGPointMake(x, y)
 	}
@@ -34,7 +36,7 @@ class FogOverlayRenderer {
 		let context = UIGraphicsGetCurrentContext()
 		CGContextSetBlendMode(context, .Clear)
 		
-		UIColor(white: 0, alpha: 0.2).set()
+		UIColor(white: 0, alpha: 0.5).set()
 		UIRectFill(CGRectMake(0.0, 0.0, imageSize.width, imageSize.height));
 		
 		for point in coordinates {

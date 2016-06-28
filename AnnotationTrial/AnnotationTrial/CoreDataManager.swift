@@ -11,7 +11,7 @@ import CoreData
 import MapKit
 
 class CoreDataManager: NSObject {
-	
+	static let serialQueue = dispatch_queue_create("CORE_DATA_QUEUE", DISPATCH_QUEUE_SERIAL)
 	static var neglectableSpan = {
 		() -> [Double] in
 		
@@ -36,26 +36,34 @@ class CoreDataManager: NSObject {
 		let maxLat = region.center.latitude + region.span.latitudeDelta / 2
 		let zoom = path.z
 		
+		let deltaLon = maxLon - minLon
+		let deltaLat = maxLat - minLat
+		
+		let boundaryLon = 0.05 * deltaLon
+		let boundaryLat = 0.05 * deltaLat
+		
 		
 		let fetchRequest = NSFetchRequest()
 		
 		let entity = NSEntityDescription.entityForName("FlatPoint", inManagedObjectContext: self.managedObjectContext())
 		fetchRequest.entity = entity
 		
-		let predicate = NSPredicate(format: "longitude > %lf AND longitude < %lf AND latitude > %lf AND latitude < %lf AND visibleZoom < %ld", minLon, maxLon, minLat, maxLat, zoom)
+		let predicate = NSPredicate(format: "longitude > %lf AND longitude < %lf AND latitude > %lf AND latitude < %lf AND visibleZoom < %ld", minLon - boundaryLon, maxLon + boundaryLon, minLat - boundaryLat, maxLat + boundaryLat, zoom)
 		fetchRequest.predicate = predicate
 		
-		if let results = try? self.managedObjectContext().executeFetchRequest(fetchRequest) {
-			let points = results.map({
-				point in
-				return point as! FlatPoint
-			})
-			
-			handler(points)
-			
-		} else {
-			handler([])
-		}
+		dispatch_async(serialQueue, {
+			if let results = try? self.managedObjectContext().executeFetchRequest(fetchRequest) {
+				let points = results.map({
+					point in
+					return point as! FlatPoint
+				})
+				
+				handler(points)
+				
+			} else {
+				handler([])
+			}
+		})
 	}
 	
 	class func pointsForRegionWithVisibleCoordinateBounds(bounds: MGLCoordinateBounds, andZoom zoom: Int, andHandler handler: ([FlatPoint]) -> Void) {
@@ -72,18 +80,19 @@ class CoreDataManager: NSObject {
 		let predicate = NSPredicate(format: "longitude > %lf AND longitude < %lf AND latitude > %lf AND latitude < %lf AND visibleZoom < %ld", minLon, maxLon, minLat, maxLat, zoom)
 		fetchRequest.predicate = predicate
 		
-		if let results = try? self.managedObjectContext().executeFetchRequest(fetchRequest) {
-			let points = results.map({
-				point in
-				return point as! FlatPoint
-			})
-			
-			handler(points)
-			
-		} else {
-			handler([])
-		}
-
+		dispatch_async(serialQueue, {
+			if let results = try? self.managedObjectContext().executeFetchRequest(fetchRequest) {
+				let points = results.map({
+					point in
+					return point as! FlatPoint
+				})
+				
+				handler(points)
+				
+			} else {
+				handler([])
+			}
+		})
 	}
 	
 	class func savePointForCoordinate(coordinate: CLLocationCoordinate2D) {
@@ -106,17 +115,19 @@ class CoreDataManager: NSObject {
 		let sortDescriptor = NSSortDescriptor(key: "visibleZoom", ascending: false)
 		fetchRequest.sortDescriptors = [sortDescriptor]
 		
-		if let results = try? self.managedObjectContext().executeFetchRequest(fetchRequest) {
-			if let detailMostPoint = results.first {
-				let flatPoint = detailMostPoint as! FlatPoint
-				let flatPointZoom = flatPoint.visibleZoom!.integerValue
-				if  flatPointZoom < 19 {
-					self.savePointForCoordinate(coordinate, andVisibleZoomLevel: flatPointZoom + 1)
+		dispatch_async(serialQueue, {
+			if let results = try? self.managedObjectContext().executeFetchRequest(fetchRequest) {
+				if let detailMostPoint = results.first {
+					let flatPoint = detailMostPoint as! FlatPoint
+					let flatPointZoom = flatPoint.visibleZoom!.integerValue
+					if  flatPointZoom < 19 {
+						self.savePointForCoordinate(coordinate, andVisibleZoomLevel: flatPointZoom + 1)
+					}
+				} else {
+					self.savePointForCoordinate(coordinate, andVisibleZoomLevel: 0)
 				}
-			} else {
-				self.savePointForCoordinate(coordinate, andVisibleZoomLevel: 0)
 			}
-		}
+		})
 	}
 	
 	class func savePointForCoordinate(coordinate: CLLocationCoordinate2D, andVisibleZoomLevel zoomLevel: Int) {
