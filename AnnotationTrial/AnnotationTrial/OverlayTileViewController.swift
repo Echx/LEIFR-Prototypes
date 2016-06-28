@@ -45,8 +45,10 @@ extension OverlayTileViewController: CLLocationManagerDelegate {
 	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
 		let coordinate = newLocation.coordinate
 		CoreDataManager.savePointForCoordinate(coordinate)
-		
-		self.overlayRenderer.reloadData()
+
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.25 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
+//			self.overlayRenderer.reloadData()
+		})
 	}
 }
 

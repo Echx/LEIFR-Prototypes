@@ -31,11 +31,16 @@ class FogOverlayRenderer {
 		
 		let imageSize = CGSizeMake(length, length)
 		UIGraphicsBeginImageContextWithOptions(imageSize, false, scale)
+		let context = UIGraphicsGetCurrentContext()
+		CGContextSetBlendMode(context, .Clear)
+		
+		UIColor(white: 0, alpha: 0.2).set()
+		UIRectFill(CGRectMake(0.0, 0.0, imageSize.width, imageSize.height));
 		
 		for point in coordinates {
 			let realPoint = pixelCooredinateForLocationCoordinate(point, tileSideLength: length, inTileAtPath: path)
-			let pointCurve = UIBezierPath(arcCenter: realPoint, radius: 3, startAngle: 0, endAngle: CGFloat(M_PI * 2), clockwise: true)
-			UIColor.redColor().setFill()
+			let pointCurve = UIBezierPath(arcCenter: realPoint, radius: 5, startAngle: 0, endAngle: CGFloat(M_PI * 2), clockwise: true)
+			UIColor.whiteColor().setFill()
 			pointCurve.fill()
 		}
 		
@@ -46,10 +51,7 @@ class FogOverlayRenderer {
 	}
 	
 	class func imageDataForTileWithPath(path: MKTileOverlayPath, andLocationCoordinates coordinates: [CLLocationCoordinate2D]) -> NSData? {
-		
-		if coordinates.count == 0 {
-			return nil
-		}
+	
 		
 		let image = tileImageForLocationCoordinates(coordinates, sideLength: 128, Scale: UIScreen.mainScreen().scale, andTilePath: path)
 		
