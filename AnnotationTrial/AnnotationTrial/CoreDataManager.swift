@@ -12,6 +12,7 @@ import MapKit
 
 class CoreDataManager: NSObject {
 	static let serialQueue = dispatch_queue_create("CORE_DATA_QUEUE", DISPATCH_QUEUE_SERIAL)
+	static let ATNewDataAvailableNotification = "ATNewDataAvailableNotification"
 	static var neglectableSpan = {
 		() -> [Double] in
 		
@@ -28,8 +29,48 @@ class CoreDataManager: NSObject {
 		return (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 	}
 	
+	class func pointsForMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, andHandler handler:([FlatPoint] -> Void)) {
+		let region = MKCoordinateRegionForMapRect(mapRect)
+		let minLon = region.center.longitude - region.span.longitudeDelta / 2
+		let minLat = region.center.latitude - region.span.latitudeDelta / 2
+		let maxLon = region.center.longitude + region.span.longitudeDelta / 2
+		let maxLat = region.center.latitude + region.span.latitudeDelta / 2
+		let zoom = zoomScale
+		
+		let deltaLon = maxLon - minLon
+		let deltaLat = maxLat - minLat
+		
+		let boundaryLon = 0.05 * deltaLon
+		let boundaryLat = 0.05 * deltaLat
+		
+		
+		let fetchRequest = NSFetchRequest()
+		
+		let managedObjectContext = self.managedObjectContext()
+		
+		let entity = NSEntityDescription.entityForName("FlatPoint", inManagedObjectContext: managedObjectContext)
+		fetchRequest.entity = entity
+		
+		let predicate = NSPredicate(format: "longitude > %lf AND longitude < %lf AND latitude > %lf AND latitude < %lf AND visibleZoom < %lf", minLon - boundaryLon, maxLon + boundaryLon, minLat - boundaryLat, maxLat + boundaryLat, zoom)
+		fetchRequest.predicate = predicate
+		
+		dispatch_async(serialQueue, {
+			if let results = try? managedObjectContext.executeFetchRequest(fetchRequest) {
+				let points = results.map({
+					point in
+					return point as! FlatPoint
+				})
+				
+				handler(points)
+				
+			} else {
+				handler([])
+			}
+		})
+	}
+	
 	class func pointsForTileAtPath(path: MKTileOverlayPath, andHandler handler:([FlatPoint] -> Void)) {
-		let region = FogOverlayRenderer.regionForTilePath(path)
+		let region = FogOverlayRendererTools.regionForTilePath(path)
 		let minLon = region.center.longitude - region.span.longitudeDelta / 2
 		let minLat = region.center.latitude - region.span.latitudeDelta / 2
 		let maxLon = region.center.longitude + region.span.longitudeDelta / 2
@@ -45,14 +86,16 @@ class CoreDataManager: NSObject {
 		
 		let fetchRequest = NSFetchRequest()
 		
-		let entity = NSEntityDescription.entityForName("FlatPoint", inManagedObjectContext: self.managedObjectContext())
+		let managedObjectContext = self.managedObjectContext()
+		
+		let entity = NSEntityDescription.entityForName("FlatPoint", inManagedObjectContext: managedObjectContext)
 		fetchRequest.entity = entity
 		
 		let predicate = NSPredicate(format: "longitude > %lf AND longitude < %lf AND latitude > %lf AND latitude < %lf AND visibleZoom < %ld", minLon - boundaryLon, maxLon + boundaryLon, minLat - boundaryLat, maxLat + boundaryLat, zoom)
 		fetchRequest.predicate = predicate
 		
 		dispatch_async(serialQueue, {
-			if let results = try? self.managedObjectContext().executeFetchRequest(fetchRequest) {
+			if let results = try? managedObjectContext.executeFetchRequest(fetchRequest) {
 				let points = results.map({
 					point in
 					return point as! FlatPoint
@@ -138,6 +181,8 @@ class CoreDataManager: NSObject {
 		flatPoint.longitude = coordinate.longitude
 		flatPoint.visibleZoom = zoomLevel
 		
-		_ = try? flatPoint.managedObjectContext?.save()	
+		_ = try? flatPoint.managedObjectContext?.save()
+		
+		NSNotificationCenter.defaultCenter().postNotificationName(ATNewDataAvailableNotification, object: nil, userInfo: ["coordinate": NSValue(MKCoordinate: coordinate)])
 	}
 }

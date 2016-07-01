@@ -8,10 +8,14 @@
 
 import MapKit
 
-class FogOverlayRenderer {
+class FogOverlayRendererTools {
 	
 	class func regionForTilePath(path: MKTileOverlayPath) -> MKCoordinateRegion {
 		return MKCoordinateRegionForMapRect(self.mapRectForTilePath(path))
+	}
+	
+	class func stringForTilePath(path: MKTileOverlayPath) -> String {
+		return "(\(path.x), \(path.y), \(path.z))"
 	}
 	
 	class func mapRectForTilePath(path: MKTileOverlayPath) -> MKMapRect {
@@ -33,8 +37,7 @@ class FogOverlayRenderer {
 		
 		let imageSize = CGSizeMake(length, length)
 		UIGraphicsBeginImageContextWithOptions(imageSize, false, scale)
-		let context = UIGraphicsGetCurrentContext()
-		CGContextSetBlendMode(context, .Clear)
+		CGContextSetBlendMode(UIGraphicsGetCurrentContext(), .Clear)
 		
 		UIColor(white: 0, alpha: 0.5).set()
 		UIRectFill(CGRectMake(0.0, 0.0, imageSize.width, imageSize.height));
@@ -42,14 +45,19 @@ class FogOverlayRenderer {
 		for point in coordinates {
 			let realPoint = pixelCooredinateForLocationCoordinate(point, tileSideLength: length, inTileAtPath: path)
 			let pointCurve = UIBezierPath(arcCenter: realPoint, radius: 5, startAngle: 0, endAngle: CGFloat(M_PI * 2), clockwise: true)
-			UIColor.whiteColor().setFill()
+			UIColor(white: 1, alpha: 1).setFill()
 			pointCurve.fill()
 		}
 		
 		let image = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
 		
-		return image
+		UIGraphicsBeginImageContext(imageSize)
+		CGContextDrawImage(UIGraphicsGetCurrentContext(), CGRectMake(0, 0, image.size.width, image.size.height), image.CGImage)
+		let flippedImage = UIGraphicsGetImageFromCurrentImageContext()
+		UIGraphicsEndImageContext()
+		
+		return flippedImage
 	}
 	
 	class func imageDataForTileWithPath(path: MKTileOverlayPath, andLocationCoordinates coordinates: [CLLocationCoordinate2D]) -> NSData? {

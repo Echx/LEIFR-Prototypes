@@ -18,7 +18,7 @@ class FogTileOverlay: MKTileOverlay {
 				return CLLocationCoordinate2DMake(flatPoint.latitude!.doubleValue, flatPoint.longitude!.doubleValue)
 			})
 			
-			let data = FogOverlayRenderer.imageDataForTileWithPath(path, andLocationCoordinates: coordinates)
+			let data = FogOverlayRendererTools.imageDataForTileWithPath(path, andLocationCoordinates: coordinates)
 			result(data, nil)
 		})
 	}
