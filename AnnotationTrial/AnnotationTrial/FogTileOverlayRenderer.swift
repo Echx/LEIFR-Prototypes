@@ -42,10 +42,10 @@ class FogTileOverlayRenderer: MKTileOverlayRenderer {
 	}
 	
 	override func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
-		CGContextSetRGBFillColor(context, 0, 0, 0, 0.5);
+//		CGContextSetRGBFillColor(context, 0, 0, 0, 0.5);
 		let rect = rectForMapRect(mapRect)
-		CGContextFillRect(context, rect)
-		CGContextSetBlendMode(context, .Clear)
+//		CGContextFillRect(context, rect)
+//		CGContextSetBlendMode(context, .Clear)
 		
 		let tilePath = self.tilePathForMapRect(mapRect, andZoomScale: zoomScale)
 		let tilePathString = FogOverlayRendererTools.stringForTilePath(tilePath)
@@ -62,9 +62,9 @@ class FogTileOverlayRenderer: MKTileOverlayRenderer {
 			})
 			
 			for point in points {
-				let radius: CGFloat = rect.size.height * 0.02
+				let radius: CGFloat = rect.size.height * 0.04
 				let pointBoundingRect = CGRectMake(point.x - radius, point.y - radius, radius * 2, radius * 2)
-				CGContextSetRGBFillColor(context, 1, 1, 1, 0);
+				CGContextSetRGBFillColor(context, 0, 0, 0, 0.2);
 				CGContextFillEllipseInRect(context, pointBoundingRect)
 			}
 		} else {
