@@ -68,5 +68,5 @@ class CoreDataManager: NSObject {
 }
 
 func StringForTileAtPath(tilePath: MKTileOverlayPath) -> String {
-	return "(\(tilePath.x),\(tilePath.y),\(tilePath.z)"
+	return "(\(tilePath.x),\(tilePath.y),\(tilePath.z))"
 }

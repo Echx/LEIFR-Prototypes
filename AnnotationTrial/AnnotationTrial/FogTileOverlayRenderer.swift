@@ -10,6 +10,8 @@ import MapKit
 
 class FogTileOverlayRenderer: MKTileOverlayRenderer {
 	
+	var map: MKMapView?
+	
 	let cache: NSCache = NSCache()
 	
 	func setNeedsDisplayTileAtPath(tilePath: MKTileOverlayPath) {
@@ -62,9 +64,15 @@ class FogTileOverlayRenderer: MKTileOverlayRenderer {
 			})
 			
 			for point in points {
-				let radius: CGFloat = rect.size.height * 0.04
+				var radius: CGFloat = 0
+				if let map = self.map {
+					let currentZoomScale = CGFloat(map.bounds.size.width) / CGFloat(map.visibleMapRect.size.width)
+					radius = MKRoadWidthAtZoomScale(currentZoomScale) / 3
+				} else {
+					radius = rect.size.height * 0.04
+				}
 				let pointBoundingRect = CGRectMake(point.x - radius, point.y - radius, radius * 2, radius * 2)
-				CGContextSetRGBFillColor(context, 0, 0, 0, 0.2);
+				CGContextSetRGBFillColor(context, 0, 0, 0, 0.5);
 				CGContextFillEllipseInRect(context, pointBoundingRect)
 			}
 		} else {

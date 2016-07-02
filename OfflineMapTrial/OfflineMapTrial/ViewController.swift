@@ -13,12 +13,20 @@ class ViewController: UIViewController {
 	
 	@IBOutlet var mapView: MKMapView!
 	@IBOutlet var offlineOverlay: MKTileOverlay!
+	@IBOutlet var progressView: UIProgressView!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		self.configureMapView()
-		// Do any additional setup after loading the view, typically from a nib.
+		
+		OfflineTileOverlay.downloadRoughWorldMap(4, progressUpdateHandler: {
+			current, all in
+			let progress = Float(current) / Float(all)
+			dispatch_async(dispatch_get_main_queue(), {
+				self.progressView.progress = progress
+			})
+		})
 	}
 	
 	func configureMapView() {
@@ -35,8 +43,6 @@ class ViewController: UIViewController {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
-
-
 }
 
 
