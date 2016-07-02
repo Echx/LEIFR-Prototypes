@@ -1,0 +1,7 @@
+# Uncomment this line to define a global platform for your project
+# platform :ios, '6.0'
+
+target 'AnimationTrial' do
+  pod 'Mapbox-iOS-SDK', :podspec => 'https://raw.githubusercontent.com/mapbox/mapbox-gl-native/ios-v3.3.0-beta.2/platform/ios/Mapbox-iOS-SDK.podspec'
+end
+
