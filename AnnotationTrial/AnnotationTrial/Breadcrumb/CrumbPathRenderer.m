@@ -34,11 +34,13 @@
     {
 //		CGContextSetBlendMode(context, kCGBlendModeClear);
         CGContextAddPath(context, path);
-        CGContextSetRGBStrokeColor(context, 0.0f, 0.0f, 0.0f, 0.5f);
+//        CGContextSetRGBStrokeColor(context, 1.0f, 0.0f, 0.0f, 0.5f);
+		CGContextSetRGBFillColor(context, 1.0f, 0.0f, 0.0f, 0.5f);
         CGContextSetLineJoin(context, kCGLineJoinRound);
         CGContextSetLineCap(context, kCGLineCapRound);
         CGContextSetLineWidth(context, lineWidth);
-        CGContextStrokePath(context);
+//        CGContextStrokePath(context);
+		CGContextFillPath(context);
         CGPathRelease(path);
     }
 }
@@ -64,7 +66,8 @@ static inline double POW2(a) { return a * a; }
                         clipRect:(MKMapRect)mapRect
                        zoomScale:(MKZoomScale)zoomScale
 {
-    CGMutablePathRef path = nil;
+	CGFloat pointRadius = self.map.visibleMapRect.size.width / 100;
+	CGMutablePathRef path = nil;
     
     // The fastest way to draw a path in an MKOverlayView is to simplify the
     // geometry for the screen by eliding points that are too close together
@@ -99,7 +102,9 @@ static inline double POW2(a) { return a * a; }
                         CGPathMoveToPoint(path, NULL, lastCGPoint.x, lastCGPoint.y);
                     }
                     CGPoint cgPoint = [self pointForMapPoint:point];
-                    CGPathAddLineToPoint(path, NULL, cgPoint.x, cgPoint.y);
+					CGRect cgRect = CGRectMake(cgPoint.x - pointRadius, cgPoint.y - pointRadius, 2 * pointRadius, 2 * pointRadius);
+					CGPathAddEllipseInRect(path, NULL, cgRect);
+//                    CGPathAddLineToPoint(path, NULL, cgPoint.x, cgPoint.y);
                     needsMove = NO;
                 }
                 else
@@ -121,7 +126,9 @@ static inline double POW2(a) { return a * a; }
                 CGPathMoveToPoint(path, NULL, lastCGPoint.x, lastCGPoint.y);
             }
             CGPoint cgPoint = [self pointForMapPoint:point];
-            CGPathAddLineToPoint(path, NULL, cgPoint.x, cgPoint.y);
+			CGRect cgRect = CGRectMake(cgPoint.x - pointRadius, cgPoint.y - pointRadius, 2 * pointRadius, 2 * pointRadius);
+			CGPathAddEllipseInRect(path, NULL, cgRect);
+//            CGPathAddLineToPoint(path, NULL, cgPoint.x, cgPoint.y);
         }
     }
     

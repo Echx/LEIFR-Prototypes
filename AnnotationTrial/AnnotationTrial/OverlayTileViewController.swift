@@ -102,6 +102,7 @@ extension OverlayTileViewController: MKMapViewDelegate {
 		} else if overlay is CrumbPath {
 			if self.crumbRenderer == nil {
 				self.crumbRenderer = CrumbPathRenderer(overlay: overlay)
+				self.crumbRenderer.map = self.mapView
 			}
 			return self.crumbRenderer
 		} else {

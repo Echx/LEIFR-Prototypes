@@ -45,7 +45,7 @@ class FogTileOverlayRenderer: MKTileOverlayRenderer {
 	
 	override func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
 //		CGContextSetRGBFillColor(context, 0, 0, 0, 0.5);
-		let rect = rectForMapRect(mapRect)
+//		let rect = rectForMapRect(mapRect)
 //		CGContextFillRect(context, rect)
 //		CGContextSetBlendMode(context, .Clear)
 		
@@ -66,10 +66,7 @@ class FogTileOverlayRenderer: MKTileOverlayRenderer {
 			for point in points {
 				var radius: CGFloat = 0
 				if let map = self.map {
-					let currentZoomScale = CGFloat(map.bounds.size.width) / CGFloat(map.visibleMapRect.size.width)
-					radius = MKRoadWidthAtZoomScale(currentZoomScale) / 3
-				} else {
-					radius = rect.size.height * 0.04
+					radius = CGFloat(map.visibleMapRect.size.width) / 100
 				}
 				let pointBoundingRect = CGRectMake(point.x - radius, point.y - radius, radius * 2, radius * 2)
 				CGContextSetRGBFillColor(context, 0, 0, 0, 0.5);

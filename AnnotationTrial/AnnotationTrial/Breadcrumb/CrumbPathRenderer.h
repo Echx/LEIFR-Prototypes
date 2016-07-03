@@ -13,4 +13,6 @@
 
 @interface CrumbPathRenderer : MKOverlayRenderer
 
+@property (nonatomic, strong) MKMapView *map;
+
 @end
