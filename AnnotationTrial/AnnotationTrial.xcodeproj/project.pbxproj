@@ -23,6 +23,8 @@
 		0C601FC31D2179A300F16C29 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C601FC21D2179A300F16C29 /* MapKit.framework */; };
 		0C601FC51D217EDB00F16C29 /* FogTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C601FC41D217EDB00F16C29 /* FogTileOverlay.swift */; };
 		0C601FC71D217F8400F16C29 /* FogOverlayRendererTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C601FC61D217F8400F16C29 /* FogOverlayRendererTools.swift */; };
+		0CC1AD751D280BF000C20C18 /* CrumbPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC1AD721D280BF000C20C18 /* CrumbPath.m */; };
+		0CC1AD761D280BF000C20C18 /* CrumbPathRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC1AD741D280BF000C20C18 /* CrumbPathRenderer.m */; };
 		0CC3B5CC1D23C3E900296733 /* FogTileOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC3B5CB1D23C3E900296733 /* FogTileOverlayRenderer.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +60,11 @@
 		0C601FC21D2179A300F16C29 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0C601FC41D217EDB00F16C29 /* FogTileOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FogTileOverlay.swift; sourceTree = "<group>"; };
 		0C601FC61D217F8400F16C29 /* FogOverlayRendererTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FogOverlayRendererTools.swift; sourceTree = "<group>"; };
+		0CC1AD6C1D280BE600C20C18 /* AnnotationTrial-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AnnotationTrial-Bridging-Header.h"; sourceTree = "<group>"; };
+		0CC1AD711D280BF000C20C18 /* CrumbPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrumbPath.h; sourceTree = "<group>"; };
+		0CC1AD721D280BF000C20C18 /* CrumbPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrumbPath.m; sourceTree = "<group>"; };
+		0CC1AD731D280BF000C20C18 /* CrumbPathRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrumbPathRenderer.h; sourceTree = "<group>"; };
+		0CC1AD741D280BF000C20C18 /* CrumbPathRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrumbPathRenderer.m; sourceTree = "<group>"; };
 		0CC3B5CB1D23C3E900296733 /* FogTileOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FogTileOverlayRenderer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,6 +104,7 @@
 		0C2B677D1D1EDE55000A505F /* AnnotationTrial */ = {
 			isa = PBXGroup;
 			children = (
+				0CC1AD701D280BF000C20C18 /* Breadcrumb */,
 				0C2B677E1D1EDE55000A505F /* AppDelegate.swift */,
 				0C2B67801D1EDE55000A505F /* ViewController.swift */,
 				0C2B67821D1EDE55000A505F /* Main.storyboard */,
@@ -110,8 +118,20 @@
 				0C601FC41D217EDB00F16C29 /* FogTileOverlay.swift */,
 				0C601FC61D217F8400F16C29 /* FogOverlayRendererTools.swift */,
 				0CC3B5CB1D23C3E900296733 /* FogTileOverlayRenderer.swift */,
+				0CC1AD6C1D280BE600C20C18 /* AnnotationTrial-Bridging-Header.h */,
 			);
 			path = AnnotationTrial;
+			sourceTree = "<group>";
+		};
+		0CC1AD701D280BF000C20C18 /* Breadcrumb */ = {
+			isa = PBXGroup;
+			children = (
+				0CC1AD711D280BF000C20C18 /* CrumbPath.h */,
+				0CC1AD721D280BF000C20C18 /* CrumbPath.m */,
+				0CC1AD731D280BF000C20C18 /* CrumbPathRenderer.h */,
+				0CC1AD741D280BF000C20C18 /* CrumbPathRenderer.m */,
+			);
+			path = Breadcrumb;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,11 +209,13 @@
 				0C2B67811D1EDE55000A505F /* ViewController.swift in Sources */,
 				0C601FC51D217EDB00F16C29 /* FogTileOverlay.swift in Sources */,
 				0C601FC11D21793600F16C29 /* OverlayTileViewController.swift in Sources */,
+				0CC1AD761D280BF000C20C18 /* CrumbPathRenderer.m in Sources */,
 				0C2B677F1D1EDE55000A505F /* AppDelegate.swift in Sources */,
 				0C601FB91D1FB62200F16C29 /* CoreDataManager.swift in Sources */,
 				0C601FBC1D1FB67B00F16C29 /* FlatPoint+CoreDataProperties.swift in Sources */,
 				0C601FC71D217F8400F16C29 /* FogOverlayRendererTools.swift in Sources */,
 				0CC3B5CC1D23C3E900296733 /* FogTileOverlayRenderer.swift in Sources */,
+				0CC1AD751D280BF000C20C18 /* CrumbPath.m in Sources */,
 				0C601FBF1D1FD34C00F16C29 /* ATPointAnnotation.swift in Sources */,
 				0C2B67871D1EDE55000A505F /* AnnotationTrial.xcdatamodeld in Sources */,
 				0C601FBD1D1FB67B00F16C29 /* FlatPoint.swift in Sources */,
@@ -311,6 +333,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -319,6 +342,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.echx.AnnotationTrial;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AnnotationTrial/AnnotationTrial-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -326,6 +351,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -334,6 +360,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.echx.AnnotationTrial;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AnnotationTrial/AnnotationTrial-Bridging-Header.h";
 			};
 			name = Release;
 		};

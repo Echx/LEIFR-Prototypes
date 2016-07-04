@@ -16,7 +16,7 @@ class CoreDataManager: NSObject {
 	static var neglectableSpan = {
 		() -> [Double] in
 		
-		var span = [1.0];
+		var span = [8.0];
 		
 		for _ in 0..<19 {
 			span.append(span.last! / 2)
@@ -181,7 +181,9 @@ class CoreDataManager: NSObject {
 		flatPoint.longitude = coordinate.longitude
 		flatPoint.visibleZoom = zoomLevel
 		
-		_ = try? flatPoint.managedObjectContext?.save()
+		dispatch_async(serialQueue, {
+			_ = try? flatPoint.managedObjectContext?.save()
+		})
 		
 		NSNotificationCenter.defaultCenter().postNotificationName(ATNewDataAvailableNotification, object: nil, userInfo: ["coordinate": NSValue(MKCoordinate: coordinate)])
 	}

@@ -10,8 +10,9 @@ import MapKit
 
 class FogTileOverlayRenderer: MKTileOverlayRenderer {
 	
-	let cache = NSMutableDictionary()
 	var context: CGContext?
+	var map: MKMapView?
+	let cache: NSCache = NSCache()
 	
 	func setNeedsDisplayTileAtPath(tilePath: MKTileOverlayPath) {
 		let mapRect = FogOverlayRendererTools.mapRectForTilePath(tilePath)
