@@ -21,7 +21,7 @@ class OverlayTileViewController: UIViewController {
 		
         super.viewDidLoad()
 
-		self.configureMapBoxOverlay()
+//		self.configureMapBoxOverlay()
 		self.configureMapView()
         // Do any additional setup after loading the view.
     }
@@ -32,6 +32,7 @@ class OverlayTileViewController: UIViewController {
 				let coordinate = coordinateValue.MKCoordinateValue
 				let mapPoint = MKMapPointForCoordinate(coordinate)
 				let mapRect = MKMapRectMake(mapPoint.x - 16, mapPoint.y - 16, 32, 32)
+//				let currentZoomScale = CGFloat(self.mapView.bounds.size.width) / CGFloat(self.mapView.visibleMapRect.size.width)
 				self.overlayRenderer.setNeedsDisplayInMapRect(mapRect)
 			}
 		}
@@ -52,7 +53,7 @@ class OverlayTileViewController: UIViewController {
 		mapView.delegate = self
 		
 		self.overlay = FogTileOverlay()
-		mapView.addOverlay(overlay)
+		mapView.addOverlay(overlay, level: .AboveLabels)
 	}
 	
 	private func configureMapBoxOverlay() {
@@ -61,7 +62,7 @@ class OverlayTileViewController: UIViewController {
 		
 		tileOverlay.canReplaceMapContent = true
 		tileOverlay.tileSize = CGSizeMake(512, 512)
-		mapView.addOverlay(tileOverlay)
+		mapView.addOverlay(tileOverlay, level: .AboveLabels)
 	}
 }
 

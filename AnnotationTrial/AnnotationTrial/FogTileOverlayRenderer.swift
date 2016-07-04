@@ -10,7 +10,8 @@ import MapKit
 
 class FogTileOverlayRenderer: MKTileOverlayRenderer {
 	
-	let cache: NSCache = NSCache()
+	let cache = NSMutableDictionary()
+	var context: CGContext?
 	
 	func setNeedsDisplayTileAtPath(tilePath: MKTileOverlayPath) {
 		let mapRect = FogOverlayRendererTools.mapRectForTilePath(tilePath)
@@ -21,19 +22,29 @@ class FogTileOverlayRenderer: MKTileOverlayRenderer {
 	override func canDrawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale) -> Bool {
 		
 		let tilePath = self.tilePathForMapRect(mapRect, andZoomScale: zoomScale)
-		let tilePathString = FogOverlayRendererTools.stringForTilePath(tilePath)
-		if let _ = self.cache.objectForKey(tilePathString) {
+		let key = self.cacheKeyForMapRect(mapRect, andZoomScale: zoomScale)
+		if let _ = self.cache.objectForKey(key) {
 			return true
 		} else {
 			CoreDataManager.pointsForTileAtPath(tilePath, andHandler: {
 				points in
-				let coordinates: [NSValue] = points.map({
+				let cgPoints: [CGPoint] = points.map({
 					flatPoint in
 					let coordinate = CLLocationCoordinate2DMake(flatPoint.latitude!.doubleValue, flatPoint.longitude!.doubleValue)
-					return NSValue(MKCoordinate: coordinate)
+					let mapPoint = MKMapPointForCoordinate(coordinate)
+					let point = self.pointForMapPoint(mapPoint)
+					return point
 				})
 				
-				self.cache.setObject(coordinates, forKey: tilePathString)
+				let path = CGPathCreateMutable()
+				let rect = self.rectForMapRect(mapRect)
+				let radius: CGFloat = rect.size.height * 0.04
+				for point in cgPoints {
+					let pointBoundingRect = CGRectMake(point.x - radius, point.y - radius, radius * 2, radius * 2)
+					CGPathAddEllipseInRect(path, nil, pointBoundingRect)
+				}
+				
+				self.cache.setObject(path, forKey: key)
 				self.setNeedsDisplayInMapRect(mapRect, zoomScale: zoomScale)
 			})
 			
@@ -42,36 +53,19 @@ class FogTileOverlayRenderer: MKTileOverlayRenderer {
 	}
 	
 	override func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
-//		CGContextSetRGBFillColor(context, 0, 0, 0, 0.5);
+		CGContextSetRGBFillColor(context, 0, 0, 0, 0.5);
 		let rect = rectForMapRect(mapRect)
-//		CGContextFillRect(context, rect)
-//		CGContextSetBlendMode(context, .Clear)
+		CGContextFillRect(context, rect)
+		CGContextSetBlendMode(context, .Clear)
 		
-		let tilePath = self.tilePathForMapRect(mapRect, andZoomScale: zoomScale)
-		let tilePathString = FogOverlayRendererTools.stringForTilePath(tilePath)
+		let key = self.cacheKeyForMapRect(mapRect, andZoomScale: zoomScale)
 		
-		if let points = self.cache.objectForKey(tilePathString) as? [NSValue] {
-			let points: [CGPoint] = points.map({
-				value in
-				
-				let coordinate = value.MKCoordinateValue
-				let mapPoint = MKMapPointForCoordinate(coordinate)
-				let point = pointForMapPoint(mapPoint)
-				
-				return point
-			})
-			
-			for point in points {
-				let radius: CGFloat = rect.size.height * 0.04
-				let pointBoundingRect = CGRectMake(point.x - radius, point.y - radius, radius * 2, radius * 2)
-				CGContextSetRGBFillColor(context, 0, 0, 0, 0.2);
-				CGContextFillEllipseInRect(context, pointBoundingRect)
-			}
-		} else {
-			super.setNeedsDisplayInMapRect(mapRect, zoomScale: zoomScale)
-		}
+		let path = self.cache.objectForKey(key) as! CGPath
+		CGContextAddPath(context, path)
+		CGContextSetRGBFillColor(context, 1, 1, 1, 1);
+		CGContextFillPath(context)
 		
-		self.cache.removeObjectForKey(tilePathString)
+		self.cache.removeObjectForKey(key)
 	}
 
 	
@@ -83,5 +77,9 @@ class FogTileOverlayRenderer: MKTileOverlayRenderer {
 		let z = Int(log2(zoomScale) + 20)
 		
 		return MKTileOverlayPath(x: x, y: y, z: z, contentScaleFactor: UIScreen.mainScreen().scale)
+	}
+	
+	func cacheKeyForMapRect(rect: MKMapRect, andZoomScale zoomScale: MKZoomScale) -> String {
+		return "(\(rect.origin.x),\(rect.origin.y),\(rect.size.width),\(rect.size.height),\(zoomScale))"
 	}
 }
