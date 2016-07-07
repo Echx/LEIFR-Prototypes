@@ -16,7 +16,7 @@ class CoreDataManager: NSObject {
 	static var neglectableSpan = {
 		() -> [Double] in
 		
-		var span = [8.0];
+		var span = [1.0];
 		
 		for _ in 0..<19 {
 			span.append(span.last! / 2)
@@ -123,6 +123,9 @@ class CoreDataManager: NSObject {
 		let predicate = NSPredicate(format: "longitude > %lf AND longitude < %lf AND latitude > %lf AND latitude < %lf AND visibleZoom < %ld", minLon, maxLon, minLat, maxLat, zoom)
 		fetchRequest.predicate = predicate
 		
+		let sortDescriptor = NSSortDescriptor(key: "time", ascending: false)
+		fetchRequest.sortDescriptors = [sortDescriptor]
+		
 		dispatch_async(serialQueue, {
 			if let results = try? self.managedObjectContext().executeFetchRequest(fetchRequest) {
 				let points = results.map({
@@ -180,6 +183,7 @@ class CoreDataManager: NSObject {
 		flatPoint.latitude = coordinate.latitude
 		flatPoint.longitude = coordinate.longitude
 		flatPoint.visibleZoom = zoomLevel
+		flatPoint.time = NSDate().timeIntervalSince1970
 		
 		dispatch_async(serialQueue, {
 			_ = try? flatPoint.managedObjectContext?.save()

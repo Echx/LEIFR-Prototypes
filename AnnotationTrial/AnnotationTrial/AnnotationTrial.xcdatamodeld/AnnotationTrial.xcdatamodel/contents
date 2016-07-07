@@ -3,9 +3,10 @@
     <entity name="FlatPoint" representedClassName=".FlatPoint" syncable="YES">
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="visibleZoom" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="FlatPoint" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="FlatPoint" positionX="-63" positionY="-18" width="128" height="105"/>
     </elements>
 </model>

@@ -31,37 +31,38 @@ class OverlayTileViewController: UIViewController {
 	func didRecieveNewDataAvailableNotification(notification: NSNotification) {
 		if let userInfo = notification.userInfo {
 			if let coordinateValue = userInfo["coordinate"] as? NSValue {
-				
+			
 				let coordinate = coordinateValue.MKCoordinateValue
 				let mapPoint = MKMapPointForCoordinate(coordinate)
 				let mapRect = MKMapRectMake(mapPoint.x - 16, mapPoint.y - 16, 32, 32)
 //				let currentZoomScale = CGFloat(self.mapView.bounds.size.width) / CGFloat(self.mapView.visibleMapRect.size.width)
 				self.overlayRenderer.setNeedsDisplayInMapRect(mapRect)
-				if self.crumbs == nil {
-					self.crumbs = CrumbPath(centerCoordinate: coordinate)
-					self.mapView.addOverlay(self.crumbs, level: .AboveRoads)
-					let region = self.coordinateRegionWithCenter(coordinate, approximateRadiusInMeters: 2500)
-					self.mapView.setRegion(region, animated: true)
-				} else {
-					var boundingMapRectChanged: ObjCBool = false
-					var updateRect = self.crumbs.addCoordinate(coordinate, boundingMapRectChanged: &boundingMapRectChanged)
-					
-					if boundingMapRectChanged {
-						self.mapView.removeOverlay(self.crumbs)
-						self.crumbRenderer = nil
-						self.mapView.addOverlay(self.crumbs, level: .AboveRoads)
-					} else if !MKMapRectIsNull(updateRect) {
-						let currentZoomScale = CGFloat(self.mapView.bounds.size.width) / CGFloat(self.mapView.visibleMapRect.size.width)
-						let lineWidth = Double(MKRoadWidthAtZoomScale(currentZoomScale))
-						updateRect = MKMapRectInset(updateRect, -lineWidth, -lineWidth)
-						self.crumbRenderer.setNeedsDisplayInMapRect(updateRect)
-					}
-					
-				}
+			}
+		}
+	}
+	
+	func updatePathWithCoordinate(coordinate: CLLocationCoordinate2D) {
+		if self.crumbs == nil {
+			self.crumbs = CrumbPath(centerCoordinate: coordinate)
+			self.mapView.addOverlay(self.crumbs, level: .AboveRoads)
+			let region = self.coordinateRegionWithCenter(coordinate, approximateRadiusInMeters: 2500)
+			self.mapView.setRegion(region, animated: true)
+		} else {
+			var boundingMapRectChanged: ObjCBool = false
+			var updateRect = self.crumbs.addCoordinate(coordinate, boundingMapRectChanged: &boundingMapRectChanged)
+			
+			if boundingMapRectChanged {
+				self.mapView.removeOverlay(self.crumbs)
+				self.crumbRenderer = nil
+				self.mapView.addOverlay(self.crumbs, level: .AboveRoads)
+			} else if !MKMapRectIsNull(updateRect) {
+				let currentZoomScale = CGFloat(self.mapView.bounds.size.width) / CGFloat(self.mapView.visibleMapRect.size.width)
+				let lineWidth = Double(MKRoadWidthAtZoomScale(currentZoomScale))
+				updateRect = MKMapRectInset(updateRect, -lineWidth, -lineWidth)
 				
-//				let mapPoint = MKMapPointForCoordinate(coordinate)
-//				let mapRect = MKMapRectMake(mapPoint.x - 16, mapPoint.y - 16, 32, 32)
-//				self.overlayRenderer.setNeedsDisplayInMapRect(mapRect)
+				if let crumbRenderer = self.crumbRenderer {
+					crumbRenderer.setNeedsDisplayInMapRect(updateRect)
+				}
 			}
 		}
 	}
@@ -74,7 +75,7 @@ class OverlayTileViewController: UIViewController {
 	private func configureMapView() {
 		mapView.delegate = self
 		self.overlay = FogTileOverlay()
-		mapView.addOverlay(overlay, level: .AboveLabels)
+		mapView.addOverlay(overlay, level: .AboveRoads)
 	}
 	
 	private func configureMapBoxOverlay() {
@@ -91,6 +92,7 @@ extension OverlayTileViewController: CLLocationManagerDelegate {
 	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
 		let coordinate = newLocation.coordinate
 		CoreDataManager.savePointForCoordinate(coordinate)
+//		self.updatePathWithCoordinate(coordinate)
 	}
 }
 
@@ -101,6 +103,7 @@ extension OverlayTileViewController: MKMapViewDelegate {
 			if  self.overlayRenderer == nil {
 				self.overlayRenderer = FogTileOverlayRenderer(overlay:overlay)
 				self.overlayRenderer.map = self.mapView
+				self.overlayRenderer.alpha = 0.2
 			}
 			return self.overlayRenderer
 		} else if overlay is CrumbPath {

@@ -38,11 +38,11 @@ class FogTileOverlayRenderer: MKTileOverlayRenderer {
 				})
 				
 				let path = CGPathCreateMutable()
-				let rect = self.rectForMapRect(mapRect)
-				let radius: CGFloat = rect.size.height * 0.04
+				if let point = cgPoints.first {
+					CGPathMoveToPoint(path, nil, point.x, point.y)
+				}
 				for point in cgPoints {
-					let pointBoundingRect = CGRectMake(point.x - radius, point.y - radius, radius * 2, radius * 2)
-					CGPathAddEllipseInRect(path, nil, pointBoundingRect)
+					CGPathAddLineToPoint(path, nil, point.x, point.y)
 				}
 				
 				self.cache.setObject(path, forKey: key)
@@ -54,17 +54,25 @@ class FogTileOverlayRenderer: MKTileOverlayRenderer {
 	}
 	
 	override func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
-		CGContextSetRGBFillColor(context, 0, 0, 0, 0.5);
-		let rect = rectForMapRect(mapRect)
-		CGContextFillRect(context, rect)
-		CGContextSetBlendMode(context, .Clear)
+//		CGContextSetRGBFillColor(context, 0, 0, 0, 0.5);
+//		let rect = rectForMapRect(mapRect)
+//		CGContextFillRect(context, rect)
+//		CGContextSetBlendMode(context, .Clear)
 		
 		let key = self.cacheKeyForMapRect(mapRect, andZoomScale: zoomScale)
 		
 		let path = self.cache.objectForKey(key) as! CGPath
 		CGContextAddPath(context, path)
-		CGContextSetRGBFillColor(context, 1, 1, 1, 1);
-		CGContextFillPath(context)
+		CGContextSetRGBFillColor(context, 0, 0, 0, 1);
+		CGContextSetRGBStrokeColor(context, 0, 0, 0, 1);
+		let rect = self.rectForMapRect(mapRect)
+		let radius: CGFloat = rect.size.height * 0.04
+		CGContextSetLineWidth(context, radius * 2)
+//		let shadowColor = UIColor.whiteColor()
+//		
+//		CGContextSetShadowWithColor(context, CGSizeMake(0, 0), 200.0, shadowColor.CGColor);
+//		CGContextFillPath(context)
+		CGContextStrokePath(context)
 		
 		self.cache.removeObjectForKey(key)
 	}
