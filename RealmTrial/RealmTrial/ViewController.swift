@@ -52,8 +52,8 @@ class ViewController: UIViewController {
 		self.mapView.delegate = self
 		
 		//set up overlay
-		let overlay = RTFogOverlay()
-		self.mapView.addOverlay(overlay);
+		let fogOverlay = RTFogOverlay()
+		self.mapView.addOverlay(fogOverlay);
 		
 	}
 }
@@ -82,6 +82,7 @@ extension ViewController: MKMapViewDelegate {
 			if self.fogOverlayRenderer == nil {
 				self.fogOverlayRenderer = RTFogOverlayRenderer(overlay: overlay)
 				self.fogOverlayRenderer.alpha = 0.5
+				self.fogOverlayRenderer.mapView = self.mapView
 			}
 			
 			return self.fogOverlayRenderer

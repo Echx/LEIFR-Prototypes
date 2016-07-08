@@ -11,6 +11,8 @@ import RealmSwift
 
 class RTFogOverlayRenderer: MKOverlayRenderer {
 	
+	var mapView: MKMapView!
+	
 	override func canDrawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale) -> Bool {
 		
 //		let region = MKCoordinateRegionForMapRect(mapRect)
@@ -45,9 +47,12 @@ class RTFogOverlayRenderer: MKOverlayRenderer {
 		CGContextSetRGBFillColor(context, 0, 0, 0, 0.5)
 		CGContextFillRect(context, rect)
 		
+		let threshold = 8192.0
+		let lineWidth = CGFloat(max(MKMapRectGetWidth(self.mapView.visibleMapRect), threshold)/40)
+		CGContextSetLineWidth(context, lineWidth)
+		
 		CGContextSetBlendMode(context, .Clear)
 		CGContextSetLineCap(context, .Round)
-		CGContextSetLineWidth(context, 1024)
 		CGContextAddPath(context, cgPath)
 		CGContextSetRGBStrokeColor(context, 0, 0, 0, 1)
 		CGContextStrokePath(context)
