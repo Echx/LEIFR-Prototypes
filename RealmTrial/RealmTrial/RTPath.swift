@@ -13,7 +13,10 @@ import MapKit
 class RTPath: Object {
 	
 	dynamic var id = ""
-	dynamic var boundingMapRectString = ""
+	dynamic var boundNorth = 0.0
+	dynamic var boundSouth = 0.0
+	dynamic var boundEast = 0.0
+	dynamic var boundWest = 0.0
 	dynamic var time = NSDate()
 	
 	let points = List<RTPoint>()
@@ -26,37 +29,18 @@ class RTPath: Object {
 	private func updateBoundingMapRectForPoint(point: RTPoint) {
 		let x = point.mapPoint().x
 		let y = point.mapPoint().y
-		let boundingMapRect = self.boundingMapRect()
 		
-		if MKMapRectIsNull(self.boundingMapRect()) {
-			self.setBoundingMapRect(MKMapRectMake(x, y, 0, 0))
+		if boundNorth == 0 && boundSouth == 0 && boundEast == 0 && boundWest == 0 {
+			boundNorth = y
+			boundSouth = y
+			boundWest = x
+			boundEast = x
 		} else {
-			let minX = min(MKMapRectGetMinX(boundingMapRect), x)
-			let maxX = max(MKMapRectGetMaxX(boundingMapRect), x)
-			let minY = min(MKMapRectGetMinY(boundingMapRect), y)
-			let maxY = max(MKMapRectGetMaxY(boundingMapRect), y)
-			
-			self.setBoundingMapRect(MKMapRectMake(minX, minY, maxX - x, maxY - minY))
+			boundWest = min(boundWest, x)
+			boundEast = max(boundEast, x)
+			boundSouth = max(boundSouth, y)
+			boundNorth = min(boundNorth, y)
 		}
-	}
-	
-	func boundingMapRect() -> MKMapRect {
-		let string = self.boundingMapRectString
-		
-		let elements = string.componentsSeparatedByString(";")
-		if elements.count == 4 {
-			let x = Double(elements[0])!
-			let y = Double(elements[1])!
-			let width = Double(elements[2])!
-			let height = Double(elements[3])!
-			return MKMapRectMake(x, y, width, height)
-		} else {
-			return MKMapRectNull
-		}
-	}
-	
-	func setBoundingMapRect(rect: MKMapRect) {
-		self.boundingMapRectString = "\(rect.origin.x);\(rect.origin.y);\(rect.size.width);\(rect.size.height)"
 	}
 	
 	override static func primaryKey() -> String? {

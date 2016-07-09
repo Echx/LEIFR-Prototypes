@@ -13,19 +13,20 @@ class ViewController: UIViewController {
 
 	@IBOutlet var mapView: MKMapView!
 	let locationManager = CLLocationManager()
-	let currentPath = RTPath()
+	var currentPath: RTPath!
+	var lastLocation: CLLocation!
 	
 	var fogOverlayRenderer: RTFogOverlayRenderer!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.configureCurrentPath()
 		self.configureLocationManager()
 		self.configureMapView()
 	}
 	
-	private func configureCurrentPath() {
+	private func configureNewCurrentPath() {
+		self.currentPath = RTPath()
 		self.currentPath.id = NSUUID().UUIDString
 		let realm = try! Realm()
 		try! realm.write {
@@ -67,6 +68,11 @@ extension ViewController: MKMapViewDelegate {
 	func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
 		if userLocation.updating {
 			if let latestLocation = userLocation.location {
+				
+				if lastLocation == nil || latestLocation.distanceFromLocation(lastLocation) > 2000 || self.currentPath.points.count > 100 {
+					self.configureNewCurrentPath()
+				}
+				
 				let point = RTPoint()
 				point.sequence = self.currentPath.points.count
 				point.latitude = latestLocation.coordinate.latitude
@@ -77,6 +83,7 @@ extension ViewController: MKMapViewDelegate {
 					self.currentPath.addPoint(point)
 				}
 				self.fogOverlayRenderer.setNeedsDisplayInMapRect(self.mapView.visibleMapRect)
+				lastLocation = latestLocation
 			}
 		}
 	}
@@ -85,7 +92,6 @@ extension ViewController: MKMapViewDelegate {
 		if overlay is RTFogOverlay {
 			if self.fogOverlayRenderer == nil {
 				self.fogOverlayRenderer = RTFogOverlayRenderer(overlay: overlay)
-				self.fogOverlayRenderer.alpha = 0.5
 				self.fogOverlayRenderer.mapView = self.mapView
 			}
 			
