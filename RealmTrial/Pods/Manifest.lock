@@ -4,12 +4,24 @@ PODS:
   - Realm/Headers (1.0.1)
   - RealmSwift (1.0.1):
     - Realm (= 1.0.1)
+  - TQLocationConverter (0.0.1)
 
 DEPENDENCIES:
   - RealmSwift
+  - TQLocationConverter (from `https://github.com/TinyQ/TQLocationConverter.git`)
+
+EXTERNAL SOURCES:
+  TQLocationConverter:
+    :git: https://github.com/TinyQ/TQLocationConverter.git
+
+CHECKOUT OPTIONS:
+  TQLocationConverter:
+    :commit: 7c912f3ea350b879d88cce9eac4a8ff5233e6296
+    :git: https://github.com/TinyQ/TQLocationConverter.git
 
 SPEC CHECKSUMS:
   Realm: 2e15e39d35b08abb529e212ed5d8af107b5236c8
   RealmSwift: d73ea2af08c3676dbdd5e4b669651a0f492162a4
+  TQLocationConverter: 3477d57e1c0e3a8b447ba069a8466cf8b9e27c29
 
 COCOAPODS: 0.39.0

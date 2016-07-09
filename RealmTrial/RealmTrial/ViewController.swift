@@ -8,6 +8,7 @@
 
 import MapKit
 import RealmSwift
+import TQLocationConverter
 
 class ViewController: UIViewController {
 
@@ -15,6 +16,7 @@ class ViewController: UIViewController {
 	let locationManager = CLLocationManager()
 	var currentPath: RTPath!
 	var lastLocation: CLLocation!
+	var shouldRecordPoint = false
 	
 	var fogOverlayRenderer: RTFogOverlayRenderer!
 	
@@ -47,6 +49,11 @@ class ViewController: UIViewController {
 		
 		self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		self.locationManager.startUpdatingLocation()
+		NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(startRecordingPoint), userInfo: nil, repeats: false)
+	}
+	
+	func startRecordingPoint() {
+		self.shouldRecordPoint = true
 	}
 	
 	private func configureMapView() {
@@ -60,34 +67,38 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: CLLocationManagerDelegate {
-	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
+		
+		if !self.shouldRecordPoint {
+			return
+		}
+		
+		let latestLocation = newLocation
+			
+		if lastLocation == nil || latestLocation.distanceFromLocation(lastLocation) > 2000 || self.currentPath.points.count > 100 {
+			self.configureNewCurrentPath()
+		}
+		
+		var coordinate = latestLocation.coordinate
+		if !TQLocationConverter.isLocationOutOfChina(coordinate) {
+			coordinate = TQLocationConverter.transformFromWGSToGCJ(coordinate)
+		}
+		
+		let point = RTPoint()
+		point.sequence = self.currentPath.points.count
+		point.latitude = coordinate.latitude
+		point.longitude = coordinate.longitude
+		
+		let realm = try! Realm()
+		try! realm.write {
+			self.currentPath.addPoint(point)
+		}
+		self.fogOverlayRenderer.setNeedsDisplayInMapRect(self.mapView.visibleMapRect)
+		lastLocation = latestLocation
 	}
 }
 
 extension ViewController: MKMapViewDelegate {
-	func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
-		if userLocation.updating {
-			if let latestLocation = userLocation.location {
-				
-				if lastLocation == nil || latestLocation.distanceFromLocation(lastLocation) > 2000 || self.currentPath.points.count > 100 {
-					self.configureNewCurrentPath()
-				}
-				
-				let point = RTPoint()
-				point.sequence = self.currentPath.points.count
-				point.latitude = latestLocation.coordinate.latitude
-				point.longitude = latestLocation.coordinate.longitude
-				
-				let realm = try! Realm()
-				try! realm.write {
-					self.currentPath.addPoint(point)
-				}
-				self.fogOverlayRenderer.setNeedsDisplayInMapRect(self.mapView.visibleMapRect)
-				lastLocation = latestLocation
-			}
-		}
-	}
-	
 	func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
 		if overlay is RTFogOverlay {
 			if self.fogOverlayRenderer == nil {
