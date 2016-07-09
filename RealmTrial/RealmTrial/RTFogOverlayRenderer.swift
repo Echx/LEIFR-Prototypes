@@ -32,6 +32,7 @@ class RTFogOverlayRenderer: MKOverlayRenderer {
 		CGContextSetLineWidth(context, lineWidth)
 		CGContextSetBlendMode(context, .Clear)
 		CGContextSetLineCap(context, .Round)
+		CGContextSetLineJoin(context, .Round)
 		
 		let realm = try!Realm()
 		let paths = realm.objects(RTPath.self)
