@@ -60,23 +60,27 @@ class ViewController: UIViewController {
 
 extension ViewController: CLLocationManagerDelegate {
 	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		if let latestLocation = locations.first {
-			
-			let point = RTPoint()
-			point.sequence = self.currentPath.points.count
-			point.latitude = latestLocation.coordinate.latitude
-			point.longitude = latestLocation.coordinate.longitude
-			
-			let realm = try! Realm()
-			try! realm.write {
-				self.currentPath.addPoint(point)
-			}
-			self.fogOverlayRenderer.setNeedsDisplayInMapRect(self.mapView.visibleMapRect)
-		}
 	}
 }
 
 extension ViewController: MKMapViewDelegate {
+	func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+		if userLocation.updating {
+			if let latestLocation = userLocation.location {
+				let point = RTPoint()
+				point.sequence = self.currentPath.points.count
+				point.latitude = latestLocation.coordinate.latitude
+				point.longitude = latestLocation.coordinate.longitude
+				
+				let realm = try! Realm()
+				try! realm.write {
+					self.currentPath.addPoint(point)
+				}
+				self.fogOverlayRenderer.setNeedsDisplayInMapRect(self.mapView.visibleMapRect)
+			}
+		}
+	}
+	
 	func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
 		if overlay is RTFogOverlay {
 			if self.fogOverlayRenderer == nil {

@@ -21,40 +21,43 @@ class RTFogOverlayRenderer: MKOverlayRenderer {
 	}
 	
 	override func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
-		let realm = try!Realm()
-		let paths = realm.objects(RTPath.self)
-		
-		let cgPath = CGPathCreateMutable()
-		for path in paths {
-			if let firstPoint = path.points.first {
-				let coordinate = firstPoint.coordinate()
-				let mapPoint = MKMapPointForCoordinate(coordinate)
-				let cgPoint = pointForMapPoint(mapPoint)
-				CGPathMoveToPoint(cgPath, nil, cgPoint.x, cgPoint.y)
-			}
-			
-			print(path.points.count)
-			
-			for point in path.points {
-				let coordinate = point.coordinate()
-				let mapPoint = MKMapPointForCoordinate(coordinate)
-				let cgPoint = pointForMapPoint(mapPoint)
-				CGPathAddLineToPoint(cgPath, nil, cgPoint.x, cgPoint.y)
-			}
-		}
 		
 		let rect = rectForMapRect(mapRect)
 		CGContextSetRGBFillColor(context, 0, 0, 0, 0.5)
 		CGContextFillRect(context, rect)
+		CGContextSetRGBStrokeColor(context, 0, 0, 0, 1)
 		
 		let threshold = 8192.0
 		let lineWidth = CGFloat(max(MKMapRectGetWidth(self.mapView.visibleMapRect), threshold)/40)
 		CGContextSetLineWidth(context, lineWidth)
-		
 		CGContextSetBlendMode(context, .Clear)
 		CGContextSetLineCap(context, .Round)
+		
+		let realm = try!Realm()
+		let paths = realm.objects(RTPath.self)
+		
+		let cgPath = CGPathCreateMutable()
+		CGPathMoveToPoint(cgPath, nil, 0, 0)
+		for path in paths {
+			let pointsCount = path.points.count
+			let firstValidIndex = 0
+			if pointsCount > firstValidIndex {
+				for i in firstValidIndex ..<  pointsCount {
+					let point = path.points[i]
+					let coordinate = point.coordinate()
+					let mapPoint = MKMapPointForCoordinate(coordinate)
+					let cgPoint = pointForMapPoint(mapPoint)
+					
+					if i == firstValidIndex {
+						CGPathMoveToPoint(cgPath, nil, cgPoint.x, cgPoint.y)
+					} else if i < pointsCount {
+						CGPathAddLineToPoint(cgPath, nil, cgPoint.x, cgPoint.y)
+					}
+				}
+			}
+		}
+		
 		CGContextAddPath(context, cgPath)
-		CGContextSetRGBStrokeColor(context, 0, 0, 0, 1)
 		CGContextStrokePath(context)
 	}
 }
