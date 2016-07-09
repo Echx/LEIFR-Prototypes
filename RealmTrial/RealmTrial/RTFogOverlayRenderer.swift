@@ -40,7 +40,6 @@ class RTFogOverlayRenderer: MKOverlayRenderer {
 		let paths = realm.objects(RTPath.self).filter(predicate)
 		
 		let cgPath = CGPathCreateMutable()
-		CGPathMoveToPoint(cgPath, nil, 0, 0)
 		for path in paths {
 			print(paths.count)
 			let pointsCount = path.points.count
@@ -61,6 +60,7 @@ class RTFogOverlayRenderer: MKOverlayRenderer {
 			}
 		}
 		
+		CGContextSetShadowWithColor(context, CGSizeZero, lineWidth, UIColor.whiteColor().CGColor)
 		CGContextAddPath(context, cgPath)
 		CGContextStrokePath(context)
 	}

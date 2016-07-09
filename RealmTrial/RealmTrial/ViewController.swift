@@ -12,6 +12,8 @@ import TQLocationConverter
 
 class ViewController: UIViewController {
 
+	private let MAX_POINT_ALLOWED_PER_PATH = 100
+	
 	@IBOutlet var mapView: MKMapView!
 	let locationManager = CLLocationManager()
 	var currentPath = RTPath()
@@ -28,9 +30,16 @@ class ViewController: UIViewController {
 	}
 	
 	private func configureNewCurrentPath() {
-		self.currentPath = RTPath()
-		self.currentPath.id = NSUUID().UUIDString
 		let realm = try! Realm()
+		
+		if self.currentPath.points.count != 0 {
+			try! realm.write {
+				self.currentPath.endEditing()
+			}
+			self.currentPath = RTPath()
+		}
+		
+		self.currentPath.id = NSUUID().UUIDString
 		try! realm.write {
 			realm.add(self.currentPath)
 		}
@@ -49,7 +58,7 @@ class ViewController: UIViewController {
 		
 		self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		self.locationManager.startUpdatingLocation()
-		NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(startRecordingPoint), userInfo: nil, repeats: false)
+		NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(startRecordingPoint), userInfo: nil, repeats: false)
 	}
 	
 	func startRecordingPoint() {
@@ -75,7 +84,7 @@ extension ViewController: CLLocationManagerDelegate {
 		
 		let latestLocation = newLocation
 			
-		if lastLocation == nil || latestLocation.distanceFromLocation(lastLocation) > 2000 || self.currentPath.points.count > 100 {
+		if lastLocation == nil || latestLocation.distanceFromLocation(lastLocation) > 2000 || self.currentPath.points.count >= MAX_POINT_ALLOWED_PER_PATH {
 			
 			self.recordCoordinate(latestLocation.coordinate)
 			self.configureNewCurrentPath()

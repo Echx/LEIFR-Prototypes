@@ -18,12 +18,26 @@ class RTPath: Object {
 	dynamic var boundEast = 0.0
 	dynamic var boundWest = 0.0
 	dynamic var time = NSDate()
+	dynamic var allowsEditing = true
 	
 	let points = List<RTPoint>()
 	
-	func addPoint(newPoint: RTPoint) {
-		self.updateBoundingMapRectForPoint(newPoint)
-		self.points.append(newPoint)
+	func addPoint(newPoint: RTPoint) -> Bool {
+		if self.allowsEditing {
+			self.updateBoundingMapRectForPoint(newPoint)
+			self.points.append(newPoint)
+			return true
+		} else {
+			return false
+		}
+	}
+	
+	func endEditing() {
+		
+		// calculate reduced path for different levels here
+		// since the path can no longer be updated
+		
+		self.allowsEditing = false
 	}
 	
 	private func updateBoundingMapRectForPoint(point: RTPoint) {
