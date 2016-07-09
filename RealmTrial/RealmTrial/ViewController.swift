@@ -14,9 +14,9 @@ class ViewController: UIViewController {
 
 	@IBOutlet var mapView: MKMapView!
 	let locationManager = CLLocationManager()
-	var currentPath: RTPath!
+	var currentPath = RTPath()
 	var lastLocation: CLLocation!
-	var shouldRecordPoint = false
+	var shouldRecordCoordinate = false
 	
 	var fogOverlayRenderer: RTFogOverlayRenderer!
 	
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
 	}
 	
 	func startRecordingPoint() {
-		self.shouldRecordPoint = true
+		self.shouldRecordCoordinate = true
 	}
 	
 	private func configureMapView() {
@@ -69,17 +69,24 @@ class ViewController: UIViewController {
 extension ViewController: CLLocationManagerDelegate {
 	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
 		
-		if !self.shouldRecordPoint {
+		if !self.shouldRecordCoordinate {
 			return
 		}
 		
 		let latestLocation = newLocation
 			
 		if lastLocation == nil || latestLocation.distanceFromLocation(lastLocation) > 2000 || self.currentPath.points.count > 100 {
+			
+			self.recordCoordinate(latestLocation.coordinate)
 			self.configureNewCurrentPath()
 		}
 		
-		var coordinate = latestLocation.coordinate
+		self.recordCoordinate(latestLocation.coordinate)
+		lastLocation = latestLocation
+	}
+	
+	private func recordCoordinate(c: CLLocationCoordinate2D) {
+		var coordinate = c
 		if !TQLocationConverter.isLocationOutOfChina(coordinate) {
 			coordinate = TQLocationConverter.transformFromWGSToGCJ(coordinate)
 		}
@@ -94,7 +101,6 @@ extension ViewController: CLLocationManagerDelegate {
 			self.currentPath.addPoint(point)
 		}
 		self.fogOverlayRenderer.setNeedsDisplayInMapRect(self.mapView.visibleMapRect)
-		lastLocation = latestLocation
 	}
 }
 
