@@ -58,6 +58,8 @@ class RTFogOverlayRenderer: MKOverlayRenderer {
 		
 		//TODO: memory issue when the next line isn't commented out
 //		CGContextSetShadowWithColor(context, CGSizeZero, lineWidth, UIColor.whiteColor().CGColor)
+		
+		//TODO: calculate bitwise drawing table, avoid draw the same place multiple times
 		CGContextAddPath(context, cgPath)
 		CGContextStrokePath(context)
 	}
