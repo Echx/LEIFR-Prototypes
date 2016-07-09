@@ -13,13 +13,6 @@ class RTFogOverlayRenderer: MKOverlayRenderer {
 	
 	var mapView: MKMapView!
 	
-	override func canDrawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale) -> Bool {
-		
-//		let region = MKCoordinateRegionForMapRect(mapRect)
-		
-		return true
-	}
-	
 	override func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
 		
 		let rect = rectForMapRect(mapRect)
@@ -34,14 +27,13 @@ class RTFogOverlayRenderer: MKOverlayRenderer {
 		CGContextSetLineCap(context, .Round)
 		CGContextSetLineJoin(context, .Round)
 		
-		let predicate = self.getPredicateFromMapRect(mapRect, edgeTolerance: Double(lineWidth))
+		let predicate = self.getPredicateFromMapRect(mapRect, edgeTolerance: Double(lineWidth * 2))
 		
 		let realm = try!Realm()
 		let paths = realm.objects(RTPath.self).filter(predicate)
 		
 		let cgPath = CGPathCreateMutable()
 		for path in paths {
-			print(paths.count)
 			let pointsCount = path.points.count
 			let firstValidIndex = 0
 			if pointsCount > firstValidIndex {
@@ -56,11 +48,16 @@ class RTFogOverlayRenderer: MKOverlayRenderer {
 					} else if i < pointsCount {
 						CGPathAddLineToPoint(cgPath, nil, cgPoint.x, cgPoint.y)
 					}
+					
+					if pointsCount == 1 {
+						CGPathAddLineToPoint(cgPath, nil, cgPoint.x, cgPoint.y)
+					}
 				}
 			}
 		}
 		
-		CGContextSetShadowWithColor(context, CGSizeZero, lineWidth, UIColor.whiteColor().CGColor)
+		//TODO: memory issue when the next line isn't commented out
+//		CGContextSetShadowWithColor(context, CGSizeZero, lineWidth, UIColor.whiteColor().CGColor)
 		CGContextAddPath(context, cgPath)
 		CGContextStrokePath(context)
 	}

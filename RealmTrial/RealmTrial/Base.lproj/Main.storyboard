@@ -14,21 +14,38 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BhB-On-zP5">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </mapView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i7e-EP-eY2">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="ZdX-nq-VcZ"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem systemItem="refresh" id="fu1-hF-67b">
+                                        <connections>
+                                            <action selector="centerMapAtUser:" destination="BYZ-38-t0r" id="Iqu-rl-m2B"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="i7e-EP-eY2" secondAttribute="bottom" id="8pM-e1-Dli"/>
+                            <constraint firstItem="i7e-EP-eY2" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="JMp-SR-6fb"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="BhB-On-zP5" secondAttribute="bottom" id="KSF-2k-cjA"/>
                             <constraint firstItem="BhB-On-zP5" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="fho-W7-ky3"/>
                             <constraint firstAttribute="trailing" secondItem="BhB-On-zP5" secondAttribute="trailing" id="gGg-hO-Gvg"/>
                             <constraint firstItem="BhB-On-zP5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="iq0-It-m4T"/>
+                            <constraint firstAttribute="trailing" secondItem="i7e-EP-eY2" secondAttribute="trailing" id="ov5-qx-NYJ"/>
                         </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="mapView" destination="BhB-On-zP5" id="SIp-BX-ECD"/>
                     </connections>

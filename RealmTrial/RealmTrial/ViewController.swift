@@ -65,6 +65,14 @@ class ViewController: UIViewController {
 		self.shouldRecordCoordinate = true
 	}
 	
+	@IBAction func centerMapAtUser(sender: AnyObject) {
+		if let location = self.mapView.userLocation.location {
+			let span = MKCoordinateSpanMake(0.01, 0.01)
+			let region = MKCoordinateRegionMake(location.coordinate, span)
+			self.mapView.setRegion(region, animated: true)
+		}
+	}
+	
 	private func configureMapView() {
 		self.mapView.delegate = self
 		
@@ -78,23 +86,29 @@ class ViewController: UIViewController {
 extension ViewController: CLLocationManagerDelegate {
 	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
 		
-		if !self.shouldRecordCoordinate {
+		if !self.shouldRecordCoordinate || newLocation.horizontalAccuracy > 100 || newLocation.verticalAccuracy > 100 {
 			return
 		}
 		
-		let latestLocation = newLocation
+		if lastLocation != nil && newLocation.distanceFromLocation(lastLocation) < 50 {
+			return
+		}
 			
-		if lastLocation == nil || latestLocation.distanceFromLocation(lastLocation) > 2000 || self.currentPath.points.count >= MAX_POINT_ALLOWED_PER_PATH {
+		if lastLocation == nil || newLocation.distanceFromLocation(lastLocation) > 2000 || self.currentPath.points.count >= MAX_POINT_ALLOWED_PER_PATH {
 			
-			self.recordCoordinate(latestLocation.coordinate)
+			self.recordCoordinate(newLocation.coordinate)
 			self.configureNewCurrentPath()
 		}
 		
-		self.recordCoordinate(latestLocation.coordinate)
-		lastLocation = latestLocation
+		
+		
+		
+		self.recordCoordinate(newLocation.coordinate)
+		lastLocation = newLocation
 	}
 	
 	private func recordCoordinate(c: CLLocationCoordinate2D) {
+		print(c)
 		var coordinate = c
 		if !TQLocationConverter.isLocationOutOfChina(coordinate) {
 			coordinate = TQLocationConverter.transformFromWGSToGCJ(coordinate)
@@ -126,4 +140,29 @@ extension ViewController: MKMapViewDelegate {
 			return MKOverlayRenderer(overlay: overlay)
 		}
 	}
+	
+//	func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+//		let identifier = "User"
+//		
+//		var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+//		
+//		if annotationView == nil{
+//			annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+//			annotationView!.image = UIImage(named: "user-location")
+//			annotationView!.canShowCallout = false
+//			
+//			let animation = CAKeyframeAnimation()
+//			animation.keyPath = "opacity"
+//			animation.values = [0, 0, 1, 1, 0, 0]
+//			animation.keyTimes = [0, 0.5 / 4, 1.5 / 4, 2.5 / 4, 3.5 / 4, 4.0 / 4]
+//			animation.duration = 4
+//			animation.repeatCount = Float.infinity
+//			
+//			annotationView?.layer.addAnimation(animation, forKey: "UserLocationAlpha")
+//		} else {
+//			annotationView!.annotation = annotation
+//		}
+//		
+//		return annotationView
+//	}
 }
