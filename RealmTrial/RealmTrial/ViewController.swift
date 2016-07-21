@@ -12,7 +12,7 @@ import TQLocationConverter
 
 class ViewController: UIViewController {
 
-	private let MAX_POINT_ALLOWED_PER_PATH = 100
+	private let MAX_POINT_ALLOWED_PER_PATH = 10000000
 	
 	@IBOutlet var mapView: MKMapView!
 	let locationManager = CLLocationManager()
@@ -87,10 +87,12 @@ extension ViewController: CLLocationManagerDelegate {
 	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
 		
 		if !self.shouldRecordCoordinate || newLocation.horizontalAccuracy > 100 || newLocation.verticalAccuracy > 100 {
+			print("Point not recorded: not accurate enough")
 			return
 		}
 		
-		if lastLocation != nil && newLocation.distanceFromLocation(lastLocation) < 50 {
+		if lastLocation != nil && newLocation.distanceFromLocation(lastLocation) < 20 {
+			print("Point not recorded: distance from last point shorter than 20 meters")
 			return
 		}
 			
@@ -108,7 +110,7 @@ extension ViewController: CLLocationManagerDelegate {
 	}
 	
 	private func recordCoordinate(c: CLLocationCoordinate2D) {
-		print(c)
+		print("Point recorded")
 		var coordinate = c
 		if !TQLocationConverter.isLocationOutOfChina(coordinate) {
 			coordinate = TQLocationConverter.transformFromWGSToGCJ(coordinate)
