@@ -26,8 +26,8 @@ class RFTFogOverlayRenderer: MKOverlayRenderer {
 		let deltaLon = maxLon - minLon
 		let deltaLat = maxLat - minLat
 		
-		let boundaryLon = 0.5 * deltaLon
-		let boundaryLat = 0.5 * deltaLat
+		let boundaryLon = max(0.5 * deltaLon, 0.005)
+		let boundaryLat = max(0.5 * deltaLat, 0.005)
 		
 		let predicate = NSPredicate(format: "longitude > %lf AND longitude < %lf AND latitude > %lf AND latitude < %lf AND visibleZoomLevel < %ld", minLon - boundaryLon, maxLon + boundaryLon, minLat - boundaryLat, maxLat + boundaryLat, zoom)
 		
@@ -73,7 +73,7 @@ class RFTFogOverlayRenderer: MKOverlayRenderer {
 		
 		CGContextAddPath(context, cgPath)
 		CGContextSetLineWidth(context, lineWidth)
-		CGContextSetShadowWithColor(context, CGSizeZero, lineWidth, UIColor.whiteColor().CGColor)
+//		CGContextSetShadowWithColor(context, CGSizeZero, lineWidth, UIColor.whiteColor().CGColor)
 		CGContextStrokePath(context)
 	}
 }
