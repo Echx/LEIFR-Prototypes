@@ -75,26 +75,28 @@ extension ViewController: CLLocationManagerDelegate {
 	}
 	
 	private func recordCoordinate(c: CLLocationCoordinate2D) {
-		print("Point recorded")
 		var coordinate = c
 		if !TQLocationConverter.isLocationOutOfChina(coordinate) {
 			coordinate = TQLocationConverter.transformFromWGSToGCJ(coordinate)
 		}
 		
-		let point = RFTPoint()
-		point.latitude = coordinate.latitude
-		point.longitude = coordinate.longitude
-		point.time = NSDate()
+		
 		
 		if let zoom = self.getZoomLevelForCoordinate(coordinate) {
+			print("Point recorded")
+			let point = RFTPoint()
+			point.latitude = coordinate.latitude
+			point.longitude = coordinate.longitude
+			point.time = NSDate()
 			point.visibleZoomLevel = zoom
+			let realm = try! Realm()
+			try! realm.write {
+				realm.add(point)
+			}
+			self.fogOverlayRenderer.setNeedsDisplayInMapRect(self.mapView.visibleMapRect)
+		} else {
+			print("Point not recorded: existed")
 		}
-		
-		let realm = try! Realm()
-		try! realm.write {
-			realm.add(point)
-		}
-		self.fogOverlayRenderer.setNeedsDisplayInMapRect(self.mapView.visibleMapRect)
 	}
 }
 
