@@ -1,0 +1,6 @@
+framework module Pods_RealmFlatTrial {
+  umbrella header "Pods-RealmFlatTrial-umbrella.h"
+
+  export *
+  module * { export * }
+}
