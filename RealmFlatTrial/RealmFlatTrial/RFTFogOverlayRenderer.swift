@@ -73,6 +73,7 @@ class RFTFogOverlayRenderer: MKOverlayRenderer {
 		
 		CGContextAddPath(context, cgPath)
 		CGContextSetLineWidth(context, lineWidth)
+		CGContextSetShadowWithColor(context, CGSizeZero, lineWidth, UIColor.whiteColor().CGColor)
 		CGContextStrokePath(context)
 	}
 }
