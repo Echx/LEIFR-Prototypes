@@ -20,7 +20,7 @@ class ViewController: UIViewController {
 	var neglectableSpan = {
 		() -> [Double] in
 		
-		var span = [1.0];
+		var span = [4.0];
 		
 		for _ in 0..<19 {
 			span.append(span.last! / 2)

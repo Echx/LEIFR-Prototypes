@@ -12,16 +12,23 @@ import RealmSwift
 class RFTFogOverlayRenderer: MKOverlayRenderer {
 	var mapView: MKMapView!
 	
-	private let maxTimeIntervalBetweenConsecutivePoints = 5.0 //in seconds
-	private let maxDistanceBetweenConsecutivePoints = 200.0 //in meters
+	private let maxTimeIntervalBetweenConsecutivePoints = 0.2 //in seconds
+	private let maxDistanceBetweenConsecutivePoints = 1.0 //in meters
 	
 	override func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
+		
+		let startTime = NSDate()
+		
 		let region = MKCoordinateRegionForMapRect(mapRect)
 		let minLon = region.center.longitude - region.span.longitudeDelta / 2
 		let minLat = region.center.latitude - region.span.latitudeDelta / 2
 		let maxLon = region.center.longitude + region.span.longitudeDelta / 2
 		let maxLat = region.center.latitude + region.span.latitudeDelta / 2
 		let zoom = Int(log2(zoomScale) + 20)
+		
+		let factor = max(Double(1 << (21 - zoom)), 1)
+		let maxDistance = maxDistanceBetweenConsecutivePoints * factor
+		let maxTime = maxTimeIntervalBetweenConsecutivePoints * factor
 		
 		let deltaLon = maxLon - minLon
 		let deltaLat = maxLat - minLat
@@ -48,7 +55,7 @@ class RFTFogOverlayRenderer: MKOverlayRenderer {
 			} else {
 				let lastLocation = CLLocation(latitude: lastPoint.latitude, longitude: lastPoint.longitude)
 				let currentLocation = CLLocation(latitude: point.latitude, longitude: point.longitude)
-				if point.time.timeIntervalSince1970 - lastPoint.time.timeIntervalSince1970 < maxTimeIntervalBetweenConsecutivePoints && lastLocation.distanceFromLocation(currentLocation) < maxDistanceBetweenConsecutivePoints
+				if point.time.timeIntervalSince1970 - lastPoint.time.timeIntervalSince1970 < maxTime && lastLocation.distanceFromLocation(currentLocation) < maxDistance
 					{
 					CGPathAddLineToPoint(cgPath, nil, cgPoint.x, cgPoint.y)
 				} else {
@@ -75,5 +82,8 @@ class RFTFogOverlayRenderer: MKOverlayRenderer {
 		CGContextSetLineWidth(context, lineWidth)
 //		CGContextSetShadowWithColor(context, CGSizeZero, lineWidth, UIColor.whiteColor().CGColor)
 		CGContextStrokePath(context)
+		
+		let endTime = NSDate()
+		print("Zoom: \(zoom), Time: \(endTime.timeIntervalSinceDate(startTime) * 1000)ms")
 	}
 }
