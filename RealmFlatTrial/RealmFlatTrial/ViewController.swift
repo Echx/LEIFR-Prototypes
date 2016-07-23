@@ -12,6 +12,8 @@ import TQLocationConverter
 
 class ViewController: UIViewController {
 	
+	static let maxZoomLevel = 19
+	
 	@IBOutlet var mapView: MKMapView!
 	let locationManager = CLLocationManager()
 	var fogOverlayRenderer: RFTFogOverlayRenderer!
@@ -22,7 +24,7 @@ class ViewController: UIViewController {
 		
 		var span = [4.0];
 		
-		for _ in 0..<19 {
+		for _ in 0 ..< maxZoomLevel {
 			span.append(span.last! / 2)
 		}
 		
@@ -51,6 +53,8 @@ class ViewController: UIViewController {
 			self.locationManager.requestAlwaysAuthorization()
 		}
 		
+		self.locationManager.allowsBackgroundLocationUpdates = true
+		
 		self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		self.locationManager.startUpdatingLocation()
 		NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(startRecordingPoint), userInfo: nil, repeats: false)
@@ -63,7 +67,6 @@ class ViewController: UIViewController {
 
 extension ViewController: CLLocationManagerDelegate {
 	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
-		
 		if !self.shouldRecordCoordinate || newLocation.horizontalAccuracy > 100 || newLocation.verticalAccuracy > 100 {
 			print("Point not recorded: not accurate enough")
 			return
@@ -93,7 +96,10 @@ extension ViewController: CLLocationManagerDelegate {
 			try! realm.write {
 				realm.add(point)
 			}
-			self.fogOverlayRenderer.setNeedsDisplayInMapRect(self.mapView.visibleMapRect)
+			
+			if UIApplication.sharedApplication().applicationState == .Active {
+				self.fogOverlayRenderer.setNeedsDisplayInMapRect(self.mapView.visibleMapRect)
+			}
 		} else {
 			print("Point not recorded: existed")
 		}
@@ -108,7 +114,7 @@ extension ViewController {
 		let lat = coordinate.latitude
 		
 		var compoundPredicate = NSPredicate(value: false)
-		for zoom in 0...19 {
+		for zoom in 0 ... ViewController.maxZoomLevel {
 			let s = neglectableSpan[zoom]
 			let currentPredicate = NSPredicate(format: "longitude > %lf AND longitude < %lf AND latitude > %lf AND latitude < %lf AND visibleZoomLevel == %ld", long - s, long + s, lat - s, lat + s, zoom)
 			compoundPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [compoundPredicate, currentPredicate])
@@ -122,7 +128,7 @@ extension ViewController {
 			return 0
 		} else {
 			let firstZoom = points.first!.visibleZoomLevel
-			if firstZoom < 19 {
+			if firstZoom < ViewController.maxZoomLevel {
 				return firstZoom + 1
 			} else {
 				return nil

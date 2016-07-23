@@ -12,8 +12,8 @@ import RealmSwift
 class RFTFogOverlayRenderer: MKOverlayRenderer {
 	var mapView: MKMapView!
 	
-	private let maxTimeIntervalBetweenConsecutivePoints = 0.2 //in seconds
-	private let maxDistanceBetweenConsecutivePoints = 1.0 //in meters
+	private let maxTimeIntervalBetweenConsecutivePoints: Double = 0.2 //in seconds
+	private let maxDistanceBetweenConsecutivePoints: Double = 1.0 //in meters
 	
 	override func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
 		
@@ -26,9 +26,9 @@ class RFTFogOverlayRenderer: MKOverlayRenderer {
 		let maxLat = region.center.latitude + region.span.latitudeDelta / 2
 		let zoom = Int(log2(zoomScale) + 20)
 		
-		let factor = max(Double(1 << (21 - zoom)), 1)
-		let maxDistance = maxDistanceBetweenConsecutivePoints * factor
-		let maxTime = maxTimeIntervalBetweenConsecutivePoints * factor
+		let factor = Double(1 << (21 - zoom))
+		let maxDistance = max(maxDistanceBetweenConsecutivePoints * factor, 200.0)
+		let maxTime = max(maxTimeIntervalBetweenConsecutivePoints * factor, 5.0)
 		
 		let deltaLon = maxLon - minLon
 		let deltaLat = maxLat - minLat
@@ -60,6 +60,7 @@ class RFTFogOverlayRenderer: MKOverlayRenderer {
 					CGPathAddLineToPoint(cgPath, nil, cgPoint.x, cgPoint.y)
 				} else {
 					CGPathMoveToPoint(cgPath, nil, cgPoint.x, cgPoint.y)
+					CGPathAddLineToPoint(cgPath, nil, cgPoint.x + 0.1, cgPoint.y + 0.1)
 				}
 			}
 			lastPoint = point
@@ -80,7 +81,7 @@ class RFTFogOverlayRenderer: MKOverlayRenderer {
 		
 		CGContextAddPath(context, cgPath)
 		CGContextSetLineWidth(context, lineWidth)
-//		CGContextSetShadowWithColor(context, CGSizeZero, lineWidth, UIColor.whiteColor().CGColor)
+		CGContextSetShadowWithColor(context, CGSizeZero, lineWidth, UIColor.whiteColor().CGColor)
 		CGContextStrokePath(context)
 		
 		let endTime = NSDate()
