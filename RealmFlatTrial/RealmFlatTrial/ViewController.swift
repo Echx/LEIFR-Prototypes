@@ -83,8 +83,6 @@ extension ViewController: CLLocationManagerDelegate {
 			coordinate = TQLocationConverter.transformFromWGSToGCJ(coordinate)
 		}
 		
-		
-		
 		if let zoom = self.getZoomLevelForCoordinate(coordinate) {
 			print("Point recorded")
 			let point = RFTPoint()
@@ -98,7 +96,11 @@ extension ViewController: CLLocationManagerDelegate {
 			}
 			
 			if UIApplication.sharedApplication().applicationState == .Active {
-				self.fogOverlayRenderer.setNeedsDisplayInMapRect(self.mapView.visibleMapRect)
+				
+				let mapPoint = MKMapPointForCoordinate(coordinate)
+				if MKMapRectContainsPoint(self.mapView.visibleMapRect, mapPoint) {
+					self.fogOverlayRenderer.setNeedsDisplayInMapRect(self.mapView.visibleMapRect)
+				}
 			}
 		} else {
 			print("Point not recorded: existed")

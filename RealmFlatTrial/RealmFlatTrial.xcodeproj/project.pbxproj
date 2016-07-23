@@ -15,6 +15,7 @@
 		0C4336D91D41C6B3004093F7 /* RFTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4336D81D41C6B3004093F7 /* RFTPoint.swift */; };
 		0C4336DB1D41C984004093F7 /* RFTFogOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4336DA1D41C984004093F7 /* RFTFogOverlay.swift */; };
 		0C4336DD1D41C9C6004093F7 /* RFTFogOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4336DC1D41C9C6004093F7 /* RFTFogOverlayRenderer.swift */; };
+		0C4336DF1D43A53D004093F7 /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0C4336DE1D43A53D004093F7 /* beep.wav */; };
 		3A2D49E1E3C404D9DB5A2CA5 /* Pods_RealmFlatTrial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE9474F5EFA92AD717ABFE8B /* Pods_RealmFlatTrial.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,7 @@
 		0C4336D81D41C6B3004093F7 /* RFTPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFTPoint.swift; sourceTree = "<group>"; };
 		0C4336DA1D41C984004093F7 /* RFTFogOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFTFogOverlay.swift; sourceTree = "<group>"; };
 		0C4336DC1D41C9C6004093F7 /* RFTFogOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFTFogOverlayRenderer.swift; sourceTree = "<group>"; };
+		0C4336DE1D43A53D004093F7 /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
 		191E1A4307667CB4418E5E43 /* Pods-RealmFlatTrial.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmFlatTrial.release.xcconfig"; path = "Pods/Target Support Files/Pods-RealmFlatTrial/Pods-RealmFlatTrial.release.xcconfig"; sourceTree = "<group>"; };
 		FE9474F5EFA92AD717ABFE8B /* Pods_RealmFlatTrial.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealmFlatTrial.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -67,6 +69,7 @@
 		0C4336C51D41C247004093F7 /* RealmFlatTrial */ = {
 			isa = PBXGroup;
 			children = (
+				0C4336DE1D43A53D004093F7 /* beep.wav */,
 				0C4336C61D41C247004093F7 /* AppDelegate.swift */,
 				0C4336C81D41C247004093F7 /* ViewController.swift */,
 				0C4336CA1D41C247004093F7 /* Main.storyboard */,
@@ -163,6 +166,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C4336DF1D43A53D004093F7 /* beep.wav in Resources */,
 				0C4336D11D41C247004093F7 /* LaunchScreen.storyboard in Resources */,
 				0C4336CE1D41C247004093F7 /* Assets.xcassets in Resources */,
 				0C4336CC1D41C247004093F7 /* Main.storyboard in Resources */,
