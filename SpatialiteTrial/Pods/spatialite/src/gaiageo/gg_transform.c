@@ -54,7 +54,7 @@ the terms of any one of the MPL, the GPL or the LGPL.
 #endif
 
 #ifndef OMIT_PROJ		/* including PROJ.4 */
-#include <proj_api.h>
+#include "proj_api.h"
 #endif
 
 #include <spatialite/sqlite.h>

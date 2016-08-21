@@ -19,7 +19,7 @@ PODS:
   - sqlite3/common (3.14.1)
 
 DEPENDENCIES:
-  - spatialite (~> 4.1)
+  - spatialite
 
 SPEC CHECKSUMS:
   geos: e96c6ca3f3ce02d20feaa8d90d4af383e11e7198

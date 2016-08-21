@@ -94,7 +94,7 @@ Regione Toscana - Settore Sistema Informativo Territoriale ed Ambientale
 #endif
 
 #ifndef OMIT_PROJ		/* including PROJ.4 */
-#include <proj_api.h>
+#include "proj_api.h"
 #endif
 
 #ifdef _WIN32
