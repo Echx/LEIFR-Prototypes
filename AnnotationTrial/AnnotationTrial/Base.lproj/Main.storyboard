@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mBH-x2-3O7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="yFm-Q8-0un">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -33,7 +34,49 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="292" y="339"/>
+            <point key="canvasLocation" x="188" y="939"/>
+        </scene>
+        <!--Overlay View Controller-->
+        <scene sceneID="WbX-Jc-8su">
+            <objects>
+                <viewController id="yFm-Q8-0un" customClass="OverlayViewController" customModule="AnnotationTrial" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8w2-R2-EzN"/>
+                        <viewControllerLayoutGuide type="bottom" id="Aux-jX-rtz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aDe-on-5R7">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsBuildings="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BpW-CO-W4c">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qth-qp-LSZ">
+                                <rect key="frame" x="70" y="70" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="switchMode" destination="yFm-Q8-0un" eventType="touchUpInside" id="5g5-gQ-DlQ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="BpW-CO-W4c" firstAttribute="leading" secondItem="aDe-on-5R7" secondAttribute="leading" id="CeE-UE-nHo"/>
+                            <constraint firstItem="qth-qp-LSZ" firstAttribute="leading" secondItem="aDe-on-5R7" secondAttribute="leadingMargin" constant="50" id="Rd7-QF-Dow"/>
+                            <constraint firstAttribute="trailing" secondItem="BpW-CO-W4c" secondAttribute="trailing" id="T4a-1d-Ccg"/>
+                            <constraint firstItem="Aux-jX-rtz" firstAttribute="top" secondItem="BpW-CO-W4c" secondAttribute="bottom" id="V42-H3-17O"/>
+                            <constraint firstItem="BpW-CO-W4c" firstAttribute="top" secondItem="aDe-on-5R7" secondAttribute="topMargin" id="hXE-H0-EbL"/>
+                            <constraint firstItem="qth-qp-LSZ" firstAttribute="top" secondItem="8w2-R2-EzN" secondAttribute="bottom" constant="50" id="kxB-x1-5uP"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="BpW-CO-W4c" id="JC8-e5-YUk"/>
+                        <outlet property="switchButton" destination="qth-qp-LSZ" id="LeY-Gy-DRD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FB8-cG-rO1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="934" y="223"/>
         </scene>
         <!--Overlay Tile View Controller-->
         <scene sceneID="RTJ-PA-tbl">
@@ -65,6 +108,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mGA-JS-877" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="188" y="223"/>
         </scene>
     </scenes>
 </document>

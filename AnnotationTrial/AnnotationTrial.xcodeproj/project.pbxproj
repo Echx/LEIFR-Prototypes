@@ -26,6 +26,10 @@
 		0CC1AD751D280BF000C20C18 /* CrumbPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC1AD721D280BF000C20C18 /* CrumbPath.m */; };
 		0CC1AD761D280BF000C20C18 /* CrumbPathRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC1AD741D280BF000C20C18 /* CrumbPathRenderer.m */; };
 		0CC3B5CC1D23C3E900296733 /* FogTileOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC3B5CB1D23C3E900296733 /* FogTileOverlayRenderer.swift */; };
+		625E85431D32AE1D000EAD9F /* TrailOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625E85421D32AE1D000EAD9F /* TrailOverlayRenderer.swift */; };
+		628CDF501D2D696B00ABF398 /* FogOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628CDF4F1D2D696B00ABF398 /* FogOverlay.swift */; };
+		628CDF521D2D6BE800ABF398 /* FogOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628CDF511D2D6BE800ABF398 /* FogOverlayRenderer.swift */; };
+		628CDF541D2D6ECE00ABF398 /* OverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628CDF531D2D6ECE00ABF398 /* OverlayViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -66,6 +70,10 @@
 		0CC1AD731D280BF000C20C18 /* CrumbPathRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrumbPathRenderer.h; sourceTree = "<group>"; };
 		0CC1AD741D280BF000C20C18 /* CrumbPathRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrumbPathRenderer.m; sourceTree = "<group>"; };
 		0CC3B5CB1D23C3E900296733 /* FogTileOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FogTileOverlayRenderer.swift; sourceTree = "<group>"; };
+		625E85421D32AE1D000EAD9F /* TrailOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailOverlayRenderer.swift; sourceTree = "<group>"; };
+		628CDF4F1D2D696B00ABF398 /* FogOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FogOverlay.swift; sourceTree = "<group>"; };
+		628CDF511D2D6BE800ABF398 /* FogOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FogOverlayRenderer.swift; sourceTree = "<group>"; };
+		628CDF531D2D6ECE00ABF398 /* OverlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +112,8 @@
 		0C2B677D1D1EDE55000A505F /* AnnotationTrial */ = {
 			isa = PBXGroup;
 			children = (
+				628CDF581D2D6F1000ABF398 /* Overlay */,
+				628CDF551D2D6EEB00ABF398 /* OverlayTile */,
 				0CC1AD701D280BF000C20C18 /* Breadcrumb */,
 				0C2B677E1D1EDE55000A505F /* AppDelegate.swift */,
 				0C2B67801D1EDE55000A505F /* ViewController.swift */,
@@ -114,10 +124,6 @@
 				0C2B67851D1EDE55000A505F /* AnnotationTrial.xcdatamodeld */,
 				0C601FB81D1FB62200F16C29 /* CoreDataManager.swift */,
 				0C601FBE1D1FD34C00F16C29 /* ATPointAnnotation.swift */,
-				0C601FC01D21793600F16C29 /* OverlayTileViewController.swift */,
-				0C601FC41D217EDB00F16C29 /* FogTileOverlay.swift */,
-				0C601FC61D217F8400F16C29 /* FogOverlayRendererTools.swift */,
-				0CC3B5CB1D23C3E900296733 /* FogTileOverlayRenderer.swift */,
 				0CC1AD6C1D280BE600C20C18 /* AnnotationTrial-Bridging-Header.h */,
 			);
 			path = AnnotationTrial;
@@ -132,6 +138,28 @@
 				0CC1AD741D280BF000C20C18 /* CrumbPathRenderer.m */,
 			);
 			path = Breadcrumb;
+			sourceTree = "<group>";
+		};
+		628CDF551D2D6EEB00ABF398 /* OverlayTile */ = {
+			isa = PBXGroup;
+			children = (
+				0C601FC01D21793600F16C29 /* OverlayTileViewController.swift */,
+				0C601FC41D217EDB00F16C29 /* FogTileOverlay.swift */,
+				0C601FC61D217F8400F16C29 /* FogOverlayRendererTools.swift */,
+				0CC3B5CB1D23C3E900296733 /* FogTileOverlayRenderer.swift */,
+			);
+			name = OverlayTile;
+			sourceTree = "<group>";
+		};
+		628CDF581D2D6F1000ABF398 /* Overlay */ = {
+			isa = PBXGroup;
+			children = (
+				628CDF4F1D2D696B00ABF398 /* FogOverlay.swift */,
+				628CDF511D2D6BE800ABF398 /* FogOverlayRenderer.swift */,
+				628CDF531D2D6ECE00ABF398 /* OverlayViewController.swift */,
+				625E85421D32AE1D000EAD9F /* TrailOverlayRenderer.swift */,
+			);
+			name = Overlay;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,8 +240,12 @@
 				0CC1AD761D280BF000C20C18 /* CrumbPathRenderer.m in Sources */,
 				0C2B677F1D1EDE55000A505F /* AppDelegate.swift in Sources */,
 				0C601FB91D1FB62200F16C29 /* CoreDataManager.swift in Sources */,
+				628CDF521D2D6BE800ABF398 /* FogOverlayRenderer.swift in Sources */,
+				628CDF541D2D6ECE00ABF398 /* OverlayViewController.swift in Sources */,
 				0C601FBC1D1FB67B00F16C29 /* FlatPoint+CoreDataProperties.swift in Sources */,
+				628CDF501D2D696B00ABF398 /* FogOverlay.swift in Sources */,
 				0C601FC71D217F8400F16C29 /* FogOverlayRendererTools.swift in Sources */,
+				625E85431D32AE1D000EAD9F /* TrailOverlayRenderer.swift in Sources */,
 				0CC3B5CC1D23C3E900296733 /* FogTileOverlayRenderer.swift in Sources */,
 				0CC1AD751D280BF000C20C18 /* CrumbPath.m in Sources */,
 				0C601FBF1D1FD34C00F16C29 /* ATPointAnnotation.swift in Sources */,

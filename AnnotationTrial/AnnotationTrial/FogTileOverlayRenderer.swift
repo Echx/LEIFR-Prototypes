@@ -39,7 +39,7 @@ class FogTileOverlayRenderer: MKTileOverlayRenderer {
 				
 				let path = CGPathCreateMutable()
 				let rect = self.rectForMapRect(mapRect)
-				let radius: CGFloat = rect.size.height * 0.04
+				let radius: CGFloat = rect.size.height * 0.08
 				for point in cgPoints {
 					let pointBoundingRect = CGRectMake(point.x - radius, point.y - radius, radius * 2, radius * 2)
 					CGPathAddEllipseInRect(path, nil, pointBoundingRect)

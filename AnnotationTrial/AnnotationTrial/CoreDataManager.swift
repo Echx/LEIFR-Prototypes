@@ -28,6 +28,25 @@ class CoreDataManager: NSObject {
 	class func managedObjectContext() -> NSManagedObjectContext {
 		return (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 	}
+    
+    class func points(handler:([FlatPoint] -> Void)) {
+        let fetchRequest = NSFetchRequest()
+        let managedObjectContext = self.managedObjectContext()
+        let entity = NSEntityDescription.entityForName("FlatPoint", inManagedObjectContext: managedObjectContext)
+        fetchRequest.entity = entity
+        dispatch_async(serialQueue) {
+            if let results = try? managedObjectContext.executeFetchRequest(fetchRequest) {
+                let points = results.map({
+                    point in
+                    return point as! FlatPoint
+                })
+                
+                handler(points)
+            } else {
+                handler([])
+            }
+        }
+    }
 	
 	class func pointsForMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, andHandler handler:([FlatPoint] -> Void)) {
 		let region = MKCoordinateRegionForMapRect(mapRect)
@@ -35,8 +54,10 @@ class CoreDataManager: NSObject {
 		let minLat = region.center.latitude - region.span.latitudeDelta / 2
 		let maxLon = region.center.longitude + region.span.longitudeDelta / 2
 		let maxLat = region.center.latitude + region.span.latitudeDelta / 2
-		let zoom = zoomScale
-		
+//		let zoom = zoomScale
+        
+        let zoom = log2(MKMapSizeWorld.width / 256.0) + log2(Double(zoomScale));
+
 		let deltaLon = maxLon - minLon
 		let deltaLat = maxLat - minLat
 		
@@ -50,6 +71,8 @@ class CoreDataManager: NSObject {
 		
 		let entity = NSEntityDescription.entityForName("FlatPoint", inManagedObjectContext: managedObjectContext)
 		fetchRequest.entity = entity
+        
+//        print("minLon: \(minLon) maxLon: \(maxLon) minLat: \(minLat) maxLat: \(maxLat) zoom: \(zoom) boundaryLon: \(boundaryLon) boundaryLat: \(boundaryLat)")
 		
 		let predicate = NSPredicate(format: "longitude > %lf AND longitude < %lf AND latitude > %lf AND latitude < %lf AND visibleZoom < %lf", minLon - boundaryLon, maxLon + boundaryLon, minLat - boundaryLat, maxLat + boundaryLat, zoom)
 		fetchRequest.predicate = predicate
@@ -122,6 +145,9 @@ class CoreDataManager: NSObject {
 		
 		let predicate = NSPredicate(format: "longitude > %lf AND longitude < %lf AND latitude > %lf AND latitude < %lf AND visibleZoom < %ld", minLon, maxLon, minLat, maxLat, zoom)
 		fetchRequest.predicate = predicate
+        
+        let sort = NSSortDescriptor(key: "timeCreated", ascending: true)
+        fetchRequest.sortDescriptors = [sort]
 		
 		dispatch_async(serialQueue, {
 			if let results = try? self.managedObjectContext().executeFetchRequest(fetchRequest) {
@@ -180,6 +206,7 @@ class CoreDataManager: NSObject {
 		flatPoint.latitude = coordinate.latitude
 		flatPoint.longitude = coordinate.longitude
 		flatPoint.visibleZoom = zoomLevel
+        flatPoint.timeCreated = NSDate()
 		
 		dispatch_async(serialQueue, {
 			_ = try? flatPoint.managedObjectContext?.save()

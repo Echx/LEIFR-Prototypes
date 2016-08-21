@@ -17,5 +17,6 @@ extension FlatPoint {
     @NSManaged var latitude: NSNumber?
     @NSManaged var longitude: NSNumber?
     @NSManaged var visibleZoom: NSNumber?
+    @NSManaged var timeCreated: NSDate?
 
 }
