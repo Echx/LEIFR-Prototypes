@@ -82,6 +82,11 @@ class ViewController: UIViewController {
 
 extension ViewController: CLLocationManagerDelegate {
 	func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
+        if !isCenterSet && isMapAdded {
+            isCenterSet = true
+            mapView.setCenterCoordinate(newLocation.coordinate, zoomLevel: 7, direction: 0, animated: false)
+        }
+        
 		if !self.shouldRecordCoordinate || newLocation.horizontalAccuracy > 100 || newLocation.verticalAccuracy > 100 {
 			print("Point not recorded: not accurate enough")
 			return
@@ -89,41 +94,34 @@ extension ViewController: CLLocationManagerDelegate {
 		
 		self.recordCoordinate(newLocation.coordinate)
 		lastLocation = newLocation
-        
-        if !isCenterSet && isMapAdded {
-            isCenterSet = true
-            mapView.setCenterCoordinate(lastLocation.coordinate, zoomLevel: 7, direction: 0, animated: false)
-        }
 	}
 	
 	private func recordCoordinate(c: CLLocationCoordinate2D) {
-		let coordinate = c
-//		if !TQLocationConverter.isLocationOutOfChina(coordinate) {
-//			coordinate = TQLocationConverter.transformFromWGSToGCJ(coordinate)
-//		}
-		
-		if let zoom = self.getZoomLevelForCoordinate(coordinate) {
-			print("Point recorded")
-			let point = RFTPoint()
-			point.latitude = coordinate.latitude
-			point.longitude = coordinate.longitude
-			point.time = NSDate()
-			point.visibleZoomLevel = zoom
-			let realm = try! Realm()
-			try! realm.write {
-				realm.add(point)
-			}
-			
-			if UIApplication.sharedApplication().applicationState == .Active {
-				
-//				let mapPoint = MKMapPointForCoordinate(coordinate)
-//				if MKMapRectContainsPoint(self.mapView.visibleMapRect, mapPoint) {
-//					self.fogOverlayRenderer.setNeedsDisplayInMapRect(self.mapView.visibleMapRect)
-//				}
-			}
-		} else {
-			print("Point not recorded: existed")
-		}
+        for _ in 0 ..< 1 {
+            let coordinate = CLLocationCoordinate2D(latitude: c.latitude + Double(arc4random_uniform(100)) / 100000, longitude: c.longitude  + Double(arc4random_uniform(100)) / 100000)
+    //		if !TQLocationConverter.isLocationOutOfChina(coordinate) {
+    //			coordinate = TQLocationConverter.transformFromWGSToGCJ(coordinate)
+    //		}
+            
+            if let zoom = self.getZoomLevelForCoordinate(coordinate) {
+                print("Point recorded")
+                let point = RFTPoint()
+                point.latitude = coordinate.latitude
+                point.longitude = coordinate.longitude
+                point.time = NSDate()
+                point.visibleZoomLevel = zoom
+                let realm = try! Realm()
+                try! realm.write {
+                    realm.add(point)
+                    let annotation = MGLPointAnnotation()
+                    annotation.coordinate = coordinate
+                    mapView.addAnnotation(annotation)
+                }
+                
+            } else {
+                print("Point not recorded: existed")
+            }
+        }
 	}
 }
 
