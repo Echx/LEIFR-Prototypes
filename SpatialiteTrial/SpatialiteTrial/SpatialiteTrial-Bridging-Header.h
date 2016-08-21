@@ -2,6 +2,6 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
-#include <sqlite3.h>
-#include <spatialite/gaiageo.h>
-#include <spatialite.h>
+#import <sqlite3.h>
+#import <spatialite/gaiageo.h>
+#import <spatialite.h>
