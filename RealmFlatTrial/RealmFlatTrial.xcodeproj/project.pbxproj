@@ -16,11 +16,26 @@
 		0C4336DB1D41C984004093F7 /* RFTFogOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4336DA1D41C984004093F7 /* RFTFogOverlay.swift */; };
 		0C4336DD1D41C9C6004093F7 /* RFTFogOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4336DC1D41C9C6004093F7 /* RFTFogOverlayRenderer.swift */; };
 		0C4336DF1D43A53D004093F7 /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0C4336DE1D43A53D004093F7 /* beep.wav */; };
-		3A2D49E1E3C404D9DB5A2CA5 /* Pods_RealmFlatTrial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE9474F5EFA92AD717ABFE8B /* Pods_RealmFlatTrial.framework */; };
+		5B4D769B38A54EB51C76EC3B /* Pods_RealmFlatTrial.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54631935702B20BA507E45DC /* Pods_RealmFlatTrial.framework */; };
+		6210A9321D69F4B000E052AD /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6210A9311D69F4B000E052AD /* Mapbox.framework */; };
+		6210A9331D69F4B000E052AD /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6210A9311D69F4B000E052AD /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		6210A9341D69F4B000E052AD /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6210A9331D69F4B000E052AD /* Mapbox.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		06579EE212EC5A1311729C7D /* Pods-RealmFlatTrial.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmFlatTrial.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RealmFlatTrial/Pods-RealmFlatTrial.debug.xcconfig"; sourceTree = "<group>"; };
 		0C4336C31D41C247004093F7 /* RealmFlatTrial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmFlatTrial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C4336C61D41C247004093F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C4336C81D41C247004093F7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -32,8 +47,10 @@
 		0C4336DA1D41C984004093F7 /* RFTFogOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFTFogOverlay.swift; sourceTree = "<group>"; };
 		0C4336DC1D41C9C6004093F7 /* RFTFogOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFTFogOverlayRenderer.swift; sourceTree = "<group>"; };
 		0C4336DE1D43A53D004093F7 /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
-		191E1A4307667CB4418E5E43 /* Pods-RealmFlatTrial.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmFlatTrial.release.xcconfig"; path = "Pods/Target Support Files/Pods-RealmFlatTrial/Pods-RealmFlatTrial.release.xcconfig"; sourceTree = "<group>"; };
-		FE9474F5EFA92AD717ABFE8B /* Pods_RealmFlatTrial.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealmFlatTrial.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		54631935702B20BA507E45DC /* Pods_RealmFlatTrial.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealmFlatTrial.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F6B7202D9D74DA339E8FEC7 /* Pods-RealmFlatTrial.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmFlatTrial.release.xcconfig"; path = "Pods/Target Support Files/Pods-RealmFlatTrial/Pods-RealmFlatTrial.release.xcconfig"; sourceTree = "<group>"; };
+		6210A9311D69F4B000E052AD /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
+		D3CB64077CE0CD38CA1751A3 /* Pods-RealmFlatTrial.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmFlatTrial.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RealmFlatTrial/Pods-RealmFlatTrial.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +58,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A2D49E1E3C404D9DB5A2CA5 /* Pods_RealmFlatTrial.framework in Frameworks */,
+				5B4D769B38A54EB51C76EC3B /* Pods_RealmFlatTrial.framework in Frameworks */,
+				6210A9321D69F4B000E052AD /* Mapbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,10 +69,11 @@
 		0C4336BA1D41C247004093F7 = {
 			isa = PBXGroup;
 			children = (
+				6210A9311D69F4B000E052AD /* Mapbox.framework */,
 				0C4336C51D41C247004093F7 /* RealmFlatTrial */,
 				0C4336C41D41C247004093F7 /* Products */,
-				99CAA00CC0FE41B295E97C61 /* Pods */,
-				A9FED768521929B856C2D52B /* Frameworks */,
+				F0DDE4A28A60AF3B0369BFCA /* Pods */,
+				F73C6D9E62E04838922B0E7B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,19 +102,19 @@
 			path = RealmFlatTrial;
 			sourceTree = "<group>";
 		};
-		99CAA00CC0FE41B295E97C61 /* Pods */ = {
+		F0DDE4A28A60AF3B0369BFCA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				06579EE212EC5A1311729C7D /* Pods-RealmFlatTrial.debug.xcconfig */,
-				191E1A4307667CB4418E5E43 /* Pods-RealmFlatTrial.release.xcconfig */,
+				D3CB64077CE0CD38CA1751A3 /* Pods-RealmFlatTrial.debug.xcconfig */,
+				5F6B7202D9D74DA339E8FEC7 /* Pods-RealmFlatTrial.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		A9FED768521929B856C2D52B /* Frameworks */ = {
+		F73C6D9E62E04838922B0E7B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FE9474F5EFA92AD717ABFE8B /* Pods_RealmFlatTrial.framework */,
+				54631935702B20BA507E45DC /* Pods_RealmFlatTrial.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -107,12 +126,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0C4336D51D41C247004093F7 /* Build configuration list for PBXNativeTarget "RealmFlatTrial" */;
 			buildPhases = (
-				970A1CF1C5D7C91EEB5658E5 /* Check Pods Manifest.lock */,
+				6D6E812FE7B94A0FEC6FDA8C /* [CP] Check Pods Manifest.lock */,
 				0C4336BF1D41C247004093F7 /* Sources */,
 				0C4336C01D41C247004093F7 /* Frameworks */,
 				0C4336C11D41C247004093F7 /* Resources */,
-				FBF1CCDB456C436951EDAC0A /* Embed Pods Frameworks */,
-				21060F3BA00CB9CD3403F2FF /* Copy Pods Resources */,
+				B3A962B3BBC7D0640F1F3266 /* [CP] Embed Pods Frameworks */,
+				1EE0A4958D3EA2E8E5132858 /* [CP] Copy Pods Resources */,
+				6210A9301D69F39D00E052AD /* ShellScript */,
+				6210A9341D69F4B000E052AD /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -176,14 +197,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		21060F3BA00CB9CD3403F2FF /* Copy Pods Resources */ = {
+		1EE0A4958D3EA2E8E5132858 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -191,14 +212,27 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RealmFlatTrial/Pods-RealmFlatTrial-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		970A1CF1C5D7C91EEB5658E5 /* Check Pods Manifest.lock */ = {
+		6210A9301D69F39D00E052AD /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
+		6D6E812FE7B94A0FEC6FDA8C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,14 +240,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		FBF1CCDB456C436951EDAC0A /* Embed Pods Frameworks */ = {
+		B3A962B3BBC7D0640F1F3266 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,9 +379,13 @@
 		};
 		0C4336D61D41C247004093F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 06579EE212EC5A1311729C7D /* Pods-RealmFlatTrial.debug.xcconfig */;
+			baseConfigurationReference = D3CB64077CE0CD38CA1751A3 /* Pods-RealmFlatTrial.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = RealmFlatTrial/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.echx.RealmFlatTrial;
@@ -357,9 +395,13 @@
 		};
 		0C4336D71D41C247004093F7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 191E1A4307667CB4418E5E43 /* Pods-RealmFlatTrial.release.xcconfig */;
+			baseConfigurationReference = 5F6B7202D9D74DA339E8FEC7 /* Pods-RealmFlatTrial.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = RealmFlatTrial/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.echx.RealmFlatTrial;

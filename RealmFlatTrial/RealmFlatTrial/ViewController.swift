@@ -6,7 +6,7 @@
 //  Copyright © 2016 Echx. All rights reserved.
 //
 
-import MapKit
+import Mapbox
 import RealmSwift
 import TQLocationConverter
 
@@ -14,11 +14,13 @@ class ViewController: UIViewController {
 	
 	static let maxZoomLevel = 19
 	
-	@IBOutlet var mapView: MKMapView!
+    var mapView: MGLMapView!
 	let locationManager = CLLocationManager()
 	var fogOverlayRenderer: RFTFogOverlayRenderer!
 	var shouldRecordCoordinate = false
 	var lastLocation: CLLocation!
+    var isMapAdded = false
+    var isCameraSet = false
 	var neglectableSpan = {
 		() -> [Double] in
 		
@@ -33,18 +35,15 @@ class ViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
 		self.configureMapView()
 		self.configureLocationManager()
 	}
 	
 	private func configureMapView() {
-		self.mapView.delegate = self
-		
-		//set up overlay
-		let fogOverlay = RFTFogOverlay()
-		self.mapView.addOverlay(fogOverlay);
-		
+		mapView = MGLMapView(frame: view.bounds, styleURL: MGLStyle.lightStyleURLWithVersion(9))
+        mapView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        mapView.showsUserLocation = true
+        mapView.delegate = self
 	}
 	
 	private func configureLocationManager() {
@@ -72,16 +71,23 @@ extension ViewController: CLLocationManagerDelegate {
 			return
 		}
 		
-		
 		self.recordCoordinate(newLocation.coordinate)
 		lastLocation = newLocation
 	}
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if !isMapAdded {
+            isMapAdded = true
+            mapView.setCenterCoordinate((locations.last?.coordinate)!, zoomLevel: 7, direction: 0, animated: false)
+            view.insertSubview(mapView, atIndex: 0)
+        }
+    }
 	
 	private func recordCoordinate(c: CLLocationCoordinate2D) {
-		var coordinate = c
-		if !TQLocationConverter.isLocationOutOfChina(coordinate) {
-			coordinate = TQLocationConverter.transformFromWGSToGCJ(coordinate)
-		}
+		let coordinate = c
+//		if !TQLocationConverter.isLocationOutOfChina(coordinate) {
+//			coordinate = TQLocationConverter.transformFromWGSToGCJ(coordinate)
+//		}
 		
 		if let zoom = self.getZoomLevelForCoordinate(coordinate) {
 			print("Point recorded")
@@ -97,16 +103,27 @@ extension ViewController: CLLocationManagerDelegate {
 			
 			if UIApplication.sharedApplication().applicationState == .Active {
 				
-				let mapPoint = MKMapPointForCoordinate(coordinate)
-				if MKMapRectContainsPoint(self.mapView.visibleMapRect, mapPoint) {
-					self.fogOverlayRenderer.setNeedsDisplayInMapRect(self.mapView.visibleMapRect)
-				}
+//				let mapPoint = MKMapPointForCoordinate(coordinate)
+//				if MKMapRectContainsPoint(self.mapView.visibleMapRect, mapPoint) {
+//					self.fogOverlayRenderer.setNeedsDisplayInMapRect(self.mapView.visibleMapRect)
+//				}
 			}
 		} else {
 			print("Point not recorded: existed")
 		}
 	}
 }
+
+extension ViewController: MGLMapViewDelegate {
+    func mapViewDidFinishLoadingMap(mapView: MGLMapView) {
+        if !isCameraSet {
+            isCameraSet = true
+            let camera = MGLMapCamera(lookingAtCenterCoordinate: mapView.centerCoordinate, fromDistance: 1000, pitch: 15, heading: 0)
+            mapView.setCamera(camera, withDuration: 3, animationTimingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut))
+        }
+    }
+}
+
 
 extension ViewController {
 	
@@ -135,21 +152,6 @@ extension ViewController {
 			} else {
 				return nil
 			}
-		}
-	}
-}
-
-extension ViewController: MKMapViewDelegate {
-	func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-		if overlay is RFTFogOverlay {
-			if self.fogOverlayRenderer == nil {
-				self.fogOverlayRenderer = RFTFogOverlayRenderer(overlay: overlay)
-				self.fogOverlayRenderer.mapView = self.mapView
-			}
-			
-			return self.fogOverlayRenderer
-		} else {
-			return MKOverlayRenderer(overlay: overlay)
 		}
 	}
 }
