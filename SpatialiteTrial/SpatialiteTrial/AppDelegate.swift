@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Override point for customization after application launch.
 		
 		spatialite_init (0);
-		print("Spatialite version: \(spatialite_version())");
+		NSLog("Spatialite version: %s\n", spatialite_version());
 		return true
 	}
 
