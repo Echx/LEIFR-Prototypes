@@ -20,6 +20,7 @@ class ViewController: UIViewController {
 	var shouldRecordCoordinate = false
 	var lastLocation: CLLocation!
     var isMapAdded = false
+    var isCenterSet = false
     var isCameraSet = false
 	var neglectableSpan = {
 		() -> [Double] in
@@ -37,6 +38,7 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 		self.configureMapView()
 		self.configureLocationManager()
+        self.loadPoints()
 	}
 	
 	private func configureMapView() {
@@ -44,6 +46,8 @@ class ViewController: UIViewController {
         mapView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         mapView.showsUserLocation = true
         mapView.delegate = self
+        view.insertSubview(mapView, atIndex: 0)
+        isMapAdded = true
 	}
 	
 	private func configureLocationManager() {
@@ -58,6 +62,18 @@ class ViewController: UIViewController {
 		self.locationManager.startUpdatingLocation()
 		NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(startRecordingPoint), userInfo: nil, repeats: false)
 	}
+    
+    private func loadPoints() {
+        let realm = try!Realm()
+        let points = realm.objects(RFTPoint.self).sorted("time")
+        var pointAnnotations = [MGLPointAnnotation]()
+        for point in points {
+            let pointAnnotation = MGLPointAnnotation()
+            pointAnnotation.coordinate = CLLocationCoordinate2DMake(point.latitude, point.longitude)
+            pointAnnotations.append(pointAnnotation)
+        }
+        mapView.addAnnotations(pointAnnotations)
+    }
 
 	func startRecordingPoint() {
 		self.shouldRecordCoordinate = true
@@ -73,15 +89,12 @@ extension ViewController: CLLocationManagerDelegate {
 		
 		self.recordCoordinate(newLocation.coordinate)
 		lastLocation = newLocation
-	}
-    
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if !isMapAdded {
-            isMapAdded = true
-            mapView.setCenterCoordinate((locations.last?.coordinate)!, zoomLevel: 7, direction: 0, animated: false)
-            view.insertSubview(mapView, atIndex: 0)
+        
+        if !isCenterSet && isMapAdded {
+            isCenterSet = true
+            mapView.setCenterCoordinate(lastLocation.coordinate, zoomLevel: 7, direction: 0, animated: false)
         }
-    }
+	}
 	
 	private func recordCoordinate(c: CLLocationCoordinate2D) {
 		let coordinate = c
