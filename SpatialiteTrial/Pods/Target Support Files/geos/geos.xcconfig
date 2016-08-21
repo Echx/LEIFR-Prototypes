@@ -1,5 +1,0 @@
-CLANG_CXX_LIBRARY = libstdc++
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/geos" "${PODS_ROOT}/Headers/Public" ${PODS_ROOT}/geos/include ${PODS_ROOT}/geos/capi
-PODS_ROOT = ${SRCROOT}
-SKIP_INSTALL = YES

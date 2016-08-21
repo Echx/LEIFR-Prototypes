@@ -1,1 +1,0 @@
-../spatialite/config-msvc.h

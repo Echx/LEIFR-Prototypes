@@ -1,8 +1,0 @@
-use_frameworks!
-
-target 'SpatialiteTrial' do
-
-pod 'spatialite'
-
-end
-
