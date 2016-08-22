@@ -17,14 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		
-		dbInit()
-		testDB()
+		
+		spatialite_init(1);
+//		dbInit()
+//		testDB()
 		
 		return true
 	}
 	
+	
 	func dbInit() {
-		spatialite_init(1);
 		let dpPath = NSBundle.mainBundle().pathForResource("test", ofType: "sqlite")!
 		let name = dpPath.cStringUsingEncoding(NSUTF8StringEncoding)!
 		let dbOpen = sqlite3_open_v2(name, &database, SQLITE_OPEN_READONLY, nil)
