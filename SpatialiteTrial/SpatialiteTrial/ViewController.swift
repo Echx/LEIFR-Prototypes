@@ -32,9 +32,8 @@ class ViewController: UIViewController {
 				
 				if ((results?.next()) != nil) {
 					print(results.columnNameToIndexMap)
-					for i in 0..<results.columnCount() {
-						print(results.stringForColumnIndex(i))
-					}
+					print(results.stringForColumn("name"))
+					print(results.dataForColumn("geometry"))
 				} else {
 					print("Record Not Found")
 				}
