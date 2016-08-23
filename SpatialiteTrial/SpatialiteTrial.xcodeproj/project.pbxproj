@@ -14,6 +14,9 @@
 		0C0CD3BE1D6B7FC500BCD922 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CD3B61D6B7FC500BCD922 /* FMDatabaseQueue.m */; };
 		0C0CD3BF1D6B7FC500BCD922 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CD3B91D6B7FC500BCD922 /* FMResultSet.m */; };
 		0C0CD3C01D6B7FC500BCD922 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CD3BA1D6B7FC500BCD922 /* Info.plist */; };
+		0C45B82F1D6C70AA005C0089 /* STDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C45B82E1D6C70AA005C0089 /* STDatabaseManager.swift */; };
+		0C45B8311D6C72A5005C0089 /* schema.sql in Resources */ = {isa = PBXBuildFile; fileRef = 0C45B8301D6C72A5005C0089 /* schema.sql */; };
+		0C45B8331D6C8127005C0089 /* default.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 0C45B8321D6C7FBB005C0089 /* default.sqlite */; };
 		0C4A92A91D69E2AC00A073B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4A92A81D69E2AC00A073B3 /* AppDelegate.swift */; };
 		0C4A92AB1D69E2AC00A073B3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4A92AA1D69E2AC00A073B3 /* ViewController.swift */; };
 		0C4A92AE1D69E2AC00A073B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C4A92AC1D69E2AC00A073B3 /* Main.storyboard */; };
@@ -63,6 +66,9 @@
 		0C0CD3B81D6B7FC500BCD922 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		0C0CD3B91D6B7FC500BCD922 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		0C0CD3BA1D6B7FC500BCD922 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0C45B82E1D6C70AA005C0089 /* STDatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STDatabaseManager.swift; sourceTree = "<group>"; };
+		0C45B8301D6C72A5005C0089 /* schema.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.sql; sourceTree = "<group>"; };
+		0C45B8321D6C7FBB005C0089 /* default.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.sqlite; sourceTree = "<group>"; };
 		0C4A92A51D69E2AC00A073B3 /* SpatialiteTrial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpatialiteTrial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C4A92A81D69E2AC00A073B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C4A92AA1D69E2AC00A073B3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -548,11 +554,14 @@
 				0C0CD3AC1D6A114100BCD922 /* test.sqlite */,
 				0C4A92A81D69E2AC00A073B3 /* AppDelegate.swift */,
 				0C4A92AA1D69E2AC00A073B3 /* ViewController.swift */,
+				0C45B82E1D6C70AA005C0089 /* STDatabaseManager.swift */,
 				0C4A92AC1D69E2AC00A073B3 /* Main.storyboard */,
 				0C4A92AF1D69E2AC00A073B3 /* Assets.xcassets */,
 				0C4A92B11D69E2AC00A073B3 /* LaunchScreen.storyboard */,
 				0C4A92B41D69E2AC00A073B3 /* Info.plist */,
 				0C4A94991D69EB2900A073B3 /* SpatialiteTrial-Bridging-Header.h */,
+				0C45B8301D6C72A5005C0089 /* schema.sql */,
+				0C45B8321D6C7FBB005C0089 /* default.sqlite */,
 			);
 			path = SpatialiteTrial;
 			sourceTree = "<group>";
@@ -1366,6 +1375,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C45B8331D6C8127005C0089 /* default.sqlite in Resources */,
 				0C0CD3AD1D6A14A900BCD922 /* test.sqlite in Resources */,
 				0C4A94861D69E88900A073B3 /* HotPixel.inl in Resources */,
 				0C4A94841D69E88900A073B3 /* WKTReader.inl in Resources */,
@@ -1381,6 +1391,7 @@
 				0C4A94771D69E88900A073B3 /* ConvexHull.inl in Resources */,
 				0C4A947E1D69E88900A073B3 /* MultiLineString.inl in Resources */,
 				0C4A94851D69E88900A073B3 /* MCIndexNoder.inl in Resources */,
+				0C45B8311D6C72A5005C0089 /* schema.sql in Resources */,
 				0C4A94791D69E88900A073B3 /* CoordinateArraySequenceFactory.inl in Resources */,
 				0C4A947B1D69E88900A073B3 /* GeometryCollection.inl in Resources */,
 				0C4A94811D69E88900A073B3 /* DirectedEdge.inl in Resources */,
@@ -1399,6 +1410,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C0CD3BB1D6B7FC500BCD922 /* FMDatabase.m in Sources */,
+				0C45B82F1D6C70AA005C0089 /* STDatabaseManager.swift in Sources */,
 				0C4A92AB1D69E2AC00A073B3 /* ViewController.swift in Sources */,
 				0C0CD3BF1D6B7FC500BCD922 /* FMResultSet.m in Sources */,
 				0C0CD3BD1D6B7FC500BCD922 /* FMDatabasePool.m in Sources */,
