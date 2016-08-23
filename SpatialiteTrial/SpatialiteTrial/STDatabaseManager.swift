@@ -11,10 +11,14 @@ import UIKit
 class STDatabaseManager: NSObject {
 	
 	private static let _sharedManager = STDatabaseManager()
-	private var database: FMDatabase!
+	private var _database: FMDatabase!
 	
 	class func sharedManager() -> STDatabaseManager{
 		return self._sharedManager
+	}
+	
+	func database() -> FMDatabase {
+		return self._database
 	}
 	
 	func createDatabaseIfNotExist(name: String) {
@@ -26,14 +30,17 @@ class STDatabaseManager: NSObject {
 			let sourcePath = NSBundle.mainBundle().pathForResource("default", ofType: "sqlite")!
 			_ = try? fileManager.copyItemAtPath(sourcePath, toPath: destinationPath)
 		}
+		
+		self._database = FMDatabase(path: destinationPath)
 	}
 	
-	func openDatabase(name: String) -> Bool {
-		let databaseDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!
-		let databasePath = databaseDirectory.stringByAppendingString("/\(name).sqlite")
-		self.database = FMDatabase(path: databasePath)
-		if self.database.open() {
-			print("Database opened:  \(name)")
+	func openDatabase() -> Bool {
+		if self._database == nil {
+			self.createDatabaseIfNotExist("default")
+		}
+		
+		if self._database.open() {
+			print("Database opened:  \(self._database.databasePath())")
 			return true
 		} else {
 			print("Database failed to open")

@@ -21,9 +21,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		spatialite_init(1);
 //		STDatabaseManager.sharedManager().test()
 		let manager = STDatabaseManager.sharedManager()
-		let databaseName = "default"
-		manager.createDatabaseIfNotExist(databaseName)
-		manager.openDatabase(databaseName)
+		manager.openDatabase()
+		let database = manager.database()
+		
+//		let insertSQL = "INSERT INTO tracks (track_geometry) VALUES (GeomFromText('LINESTRING(689001.702718 4798988.808442, 689027.602471 4798996.686619, 689029.54214 4798989.585948, 689029.54214 4798989.585948)'));"
+//		if database.executeStatements(insertSQL) {
+//			print("inserted!")
+//		} else {
+//			print("not inserted!")
+//		}
+		
+		let querySQL = "SELECT track_id, AsText(track_geometry) FROM tracks WHERE GeometryType(track_geometry) = 'LINESTRING'"
+		let results = database.executeQuery(querySQL, withArgumentsInArray: nil)
+		
+		if ((results?.next()) != nil) {
+			print(results.columnNameToIndexMap)
+			print(results.stringForColumn("track_id"))
+			print(results.stringForColumn("astext(track_geometry)"))
+		} else {
+			print("Record Not Found")
+		}
 		
 		return true
 	}
