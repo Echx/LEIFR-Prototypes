@@ -98,7 +98,8 @@ extension ViewController: CLLocationManagerDelegate {
 	
 	private func recordCoordinate(c: CLLocationCoordinate2D) {
         for _ in 0 ..< 1 {
-            let coordinate = CLLocationCoordinate2D(latitude: c.latitude + Double(arc4random_uniform(100)) / 100000, longitude: c.longitude  + Double(arc4random_uniform(100)) / 100000)
+            let coordinate = CLLocationCoordinate2D(latitude: c.latitude, longitude: c.longitude)
+//            let coordinate = CLLocationCoordinate2D(latitude: c.latitude + Double(arc4random_uniform(100)) / 1000000, longitude: c.longitude + Double(arc4random_uniform(100)) / 1000000)
     //		if !TQLocationConverter.isLocationOutOfChina(coordinate) {
     //			coordinate = TQLocationConverter.transformFromWGSToGCJ(coordinate)
     //		}
@@ -133,6 +134,34 @@ extension ViewController: MGLMapViewDelegate {
             mapView.setCamera(camera, withDuration: 3, animationTimingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut))
         }
     }
+    
+    func mapView(mapView: MGLMapView, imageForAnnotation annotation: MGLAnnotation) -> MGLAnnotationImage? {
+        guard annotation is MGLPointAnnotation else {
+            return nil
+        }
+        let identifier = "point"
+        var annotationView = mapView.dequeueReusableAnnotationImageWithIdentifier(identifier)
+        if annotationView == nil {
+            annotationView = MGLAnnotationImage(image: UIImage(named: "point")!, reuseIdentifier: identifier)
+        }
+        return annotationView
+
+    }
+    
+//    func mapView(mapView: MGLMapView, viewForAnnotation annotation: MGLAnnotation) -> MGLAnnotationView? {
+//        guard annotation is MGLPointAnnotation else {
+//            return nil
+//        }
+//        let identifier = "point"
+//        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+//        if annotationView == nil {
+//            annotationView = MGLAnnotationView(reuseIdentifier: identifier)
+//            annotationView!.frame = CGRectMake(0, 0, 5, 5)
+//            annotationView!.backgroundColor = UIColor.greenColor()
+//            annotationView!.layer.cornerRadius = 2.5
+//        }
+//        return annotationView
+//    }
 }
 
 
