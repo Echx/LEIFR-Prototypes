@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class STDatabaseManager: NSObject {
 	
@@ -48,34 +49,35 @@ class STDatabaseManager: NSObject {
 		}
 	}
 	
-	
-	func test() {
-		let databasePath = NSBundle.mainBundle().pathForResource("test", ofType: "sqlite")!
-		if let database = FMDatabase(path: databasePath) {
-			if database.openWithFlags(SQLITE_OPEN_READONLY) {
-				let x = 540176.564
-				let y = 5041228.401
-				let querySQL = "SELECT * FROM Regions Where MbrContains(Geometry, MakePoint(\(x), \(y), \(32632)))"
-				let results = database.executeQuery(querySQL, withArgumentsInArray: nil)
-				
-				if ((results?.next()) != nil) {
-					print(results.columnNameToIndexMap)
-					print(results.stringForColumn("name"))
-					print(results.dataForColumn("geometry"))
-				} else {
-					print("Record Not Found")
-				}
-			}
-		}
+	func insertPath(path: STPath) -> Bool {
+		let insertSQL = "INSERT OR REPLACE INTO tracks (track_geometry) VALUES (LineStringFromText('\(path.WKTString())'));"
+		return self._database.executeStatements(insertSQL)
 	}
 	
-	class func WKTStringForLineString(lineString: WKBLineString) -> String{
-		let array = NSMutableArray()
-		for point in lineString.points {
-			array.addObject("\(point.x as NSDecimalNumber) \(point.y as NSDecimalNumber) \(point.z as NSDecimalNumber) \(point.m as NSDecimalNumber)")
+	func pathsInRegion(region: MKCoordinateRegion) -> [STPath]{
+		let xMin = region.center.longitude - region.span.longitudeDelta / 2
+		let yMin = region.center.latitude - region.span.latitudeDelta / 2
+		let xMax = region.center.longitude + region.span.longitudeDelta / 2
+		let yMax = region.center.latitude + region.span.latitudeDelta / 2
+		
+		let screenPolygon = "GeomFromText('POLYGON((\(xMin) \(yMin), \(xMin) \(yMax), \(xMax) \(yMax), \(xMax) \(yMin)))')"
+		
+		
+		let querySQL = "SELECT track_id, AsBinary(track_geometry) FROM tracks WHERE MbrOverlaps(track_geometry, " + screenPolygon + ")"
+		let results = self._database.executeQuery(querySQL, withArgumentsInArray: nil)!
+		
+		var paths = [STPath]()
+		
+		while (results.next() && results.columnNameToIndexMap.count != 0) {
+			let data = results.dataForColumn("asbinary(track_geometry)")
+			let reader = WKBByteReader(data: data)
+			reader.byteOrder = Int(CFByteOrderBigEndian.rawValue)
+			
+			let geometry = WKBGeometryReader.readGeometryWithReader(reader) as! WKBLineString
+			let path = STPath(lineString: geometry)
+			paths.append(path)
 		}
 		
-		let pointsString = array.componentsJoinedByString(", ")
-		return "LINESTRINGZM(" + pointsString + ")"
+		return paths
 	}
 }

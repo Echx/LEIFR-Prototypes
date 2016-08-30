@@ -19,60 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		
 		spatialite_init(1);
-//		STDatabaseManager.sharedManager().test()
 		let manager = STDatabaseManager.sharedManager()
 		manager.openDatabase()
 		let database = manager.database()
 		self.database = database
-//		let insertSQL = "INSERT INTO tracks (track_geometry) VALUES (GeomFromText('LINESTRING(689001.702718 4798988.808442, 689027.602471 4798996.686619, 689029.54214 4798989.585948, 689029.54214 4798989.585948)'));"
-//		if database.executeStatements(insertSQL) {
-//			print("inserted!")
-//		} else {
-//			print("not inserted!")
-//		}
-		
-		insert()
-		query()
+
 		
 		return true
-	}
-	
-	func query() {
-		let querySQL = "SELECT track_id, AsBinary(track_geometry) FROM tracks"
-		let results = database.executeQuery(querySQL, withArgumentsInArray: nil)
-		
-		if ((results?.next()) != nil) {
-			print(results.columnNameToIndexMap)
-			print(results.stringForColumn("track_id"))
-			let data = results.dataForColumn("asbinary(track_geometry)")
-			let reader = WKBByteReader(data: data)
-			reader.byteOrder = Int(CFByteOrderBigEndian.rawValue)
-			
-			let geometry = WKBGeometryReader.readGeometryWithReader(reader) as! WKBLineString
-			for point in geometry.points {
-				print("(\(point.x as NSDecimalNumber), \(point.y as NSDecimalNumber), \(point.z as NSDecimalNumber), \(point.m as NSDecimalNumber))")
-			}
-		} else {
-			print("Record Not Found")
-		}
-	}
-	
-	func insert() {
-		let lineString = WKBLineString(hasZ: true, andHasM: true)
-		
-		for i in 0..<10 {
-			let point = WKBPoint(hasZ: true, andHasM: true, andX: NSDecimalNumber(double: Double(10 * i)), andY: 45)
-			point.m = NSDecimalNumber(integer: i)
-			point.z = NSDecimalNumber(integer: 0)
-			lineString.addPoint(point)
-		}
-		
-		let insertSQL = "INSERT OR REPLACE INTO tracks (track_geometry) VALUES (GeomFromText('\(STDatabaseManager.WKTStringForLineString(lineString))'));"
-		if database.executeStatements(insertSQL) {
-			print("inserted!")
-		} else {
-			print("not inserted!")
-		}
 	}
 	
 	func applicationWillResignActive(application: UIApplication) {
@@ -95,6 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationWillTerminate(application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+		
 	}
 
 

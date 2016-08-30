@@ -15,6 +15,7 @@
 		0C0CD3BF1D6B7FC500BCD922 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CD3B91D6B7FC500BCD922 /* FMResultSet.m */; };
 		0C0CD3C01D6B7FC500BCD922 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CD3BA1D6B7FC500BCD922 /* Info.plist */; };
 		0C1FDAF31D75DF7000F8AAF5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1FDAF21D75DF7000F8AAF5 /* MapKit.framework */; };
+		0C1FDAF51D75DFB200F8AAF5 /* STPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1FDAF41D75DFB200F8AAF5 /* STPath.swift */; };
 		0C45B82F1D6C70AA005C0089 /* STDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C45B82E1D6C70AA005C0089 /* STDatabaseManager.swift */; };
 		0C45B8311D6C72A5005C0089 /* schema.sql in Resources */ = {isa = PBXBuildFile; fileRef = 0C45B8301D6C72A5005C0089 /* schema.sql */; };
 		0C45B8331D6C8127005C0089 /* default.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 0C45B8321D6C7FBB005C0089 /* default.sqlite */; };
@@ -69,6 +70,7 @@
 		0C0CD3B91D6B7FC500BCD922 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		0C0CD3BA1D6B7FC500BCD922 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C1FDAF21D75DF7000F8AAF5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		0C1FDAF41D75DFB200F8AAF5 /* STPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPath.swift; sourceTree = "<group>"; };
 		0C45B82E1D6C70AA005C0089 /* STDatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STDatabaseManager.swift; sourceTree = "<group>"; };
 		0C45B8301D6C72A5005C0089 /* schema.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.sql; sourceTree = "<group>"; };
 		0C45B8321D6C7FBB005C0089 /* default.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.sqlite; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 			isa = PBXGroup;
 			children = (
 				0C0CD3AC1D6A114100BCD922 /* test.sqlite */,
+				0C1FDAF41D75DFB200F8AAF5 /* STPath.swift */,
 				0C4A92A81D69E2AC00A073B3 /* AppDelegate.swift */,
 				0C4A92AA1D69E2AC00A073B3 /* ViewController.swift */,
 				0C45B82E1D6C70AA005C0089 /* STDatabaseManager.swift */,
@@ -1490,6 +1493,7 @@
 			files = (
 				0C0CD3BB1D6B7FC500BCD922 /* FMDatabase.m in Sources */,
 				0C45B82F1D6C70AA005C0089 /* STDatabaseManager.swift in Sources */,
+				0C1FDAF51D75DFB200F8AAF5 /* STPath.swift in Sources */,
 				0C4A92AB1D69E2AC00A073B3 /* ViewController.swift in Sources */,
 				0C0CD3BF1D6B7FC500BCD922 /* FMResultSet.m in Sources */,
 				0C0CD3BD1D6B7FC500BCD922 /* FMDatabasePool.m in Sources */,

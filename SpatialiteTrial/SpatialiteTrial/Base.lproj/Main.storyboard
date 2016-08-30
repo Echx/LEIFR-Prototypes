@@ -17,18 +17,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="qAe-zy-5nD">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qAe-zy-5nD">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PMX-wI-Rh9">
+                                <rect key="frame" x="279" y="285" width="42" height="30"/>
+                                <state key="normal" title="Query"/>
+                                <connections>
+                                    <action selector="queryResult" destination="BYZ-38-t0r" eventType="touchUpInside" id="GUi-8x-YOM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="PMX-wI-Rh9" firstAttribute="centerX" secondItem="qAe-zy-5nD" secondAttribute="centerX" id="02x-yd-Zhy"/>
                             <constraint firstItem="qAe-zy-5nD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Nes-qP-etj"/>
+                            <constraint firstItem="PMX-wI-Rh9" firstAttribute="centerY" secondItem="qAe-zy-5nD" secondAttribute="centerY" id="PBy-he-mgs"/>
                             <constraint firstAttribute="trailing" secondItem="qAe-zy-5nD" secondAttribute="trailing" id="Y51-2A-wpn"/>
                             <constraint firstItem="qAe-zy-5nD" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="hN5-ct-8TP"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="qAe-zy-5nD" secondAttribute="bottom" id="ihY-sH-lPq"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="qAe-zy-5nD" id="lpz-RS-ccz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
