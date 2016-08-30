@@ -13,6 +13,7 @@ class STDatabaseManager: NSObject {
 	
 	private static let _sharedManager = STDatabaseManager()
 	private var _database: FMDatabase!
+	private var _databaseQueue: FMDatabaseQueue!
 	
 	class func sharedManager() -> STDatabaseManager{
 		return self._sharedManager
@@ -33,6 +34,7 @@ class STDatabaseManager: NSObject {
 		}
 		
 		self._database = FMDatabase(path: destinationPath)
+		self._databaseQueue = FMDatabaseQueue(path: destinationPath)
 	}
 	
 	func openDatabase() -> Bool {
@@ -49,35 +51,41 @@ class STDatabaseManager: NSObject {
 		}
 	}
 	
-	func savePath(path: STPath) -> Bool {
-		let insertSQL = "INSERT OR REPLACE INTO tracks (track_geometry) VALUES (LineStringFromText('\(path.WKTString())'));"
-		return self._database.executeStatements(insertSQL)
+	func savePath(path: STPath) {
+		_databaseQueue.inDatabase({
+			database in
+			let insertSQL = "INSERT OR REPLACE INTO tracks (track_geometry) VALUES (LineStringFromText('\(path.WKTString())'));"
+			self._database.executeStatements(insertSQL)
+		})
 	}
 	
-	func pathsInRegion(region: MKCoordinateRegion) -> [STPath]{
-		let xMin = region.center.longitude - region.span.longitudeDelta / 2
-		let yMin = region.center.latitude - region.span.latitudeDelta / 2
-		let xMax = region.center.longitude + region.span.longitudeDelta / 2
-		let yMax = region.center.latitude + region.span.latitudeDelta / 2
-		
-		let screenPolygon = "GeomFromText('POLYGON((\(xMin) \(yMin), \(xMin) \(yMax), \(xMax) \(yMax), \(xMax) \(yMin)))')"
-		
-		
-		let querySQL = "SELECT track_id, AsBinary(track_geometry) FROM tracks WHERE MbrOverlaps(track_geometry, " + screenPolygon + ")"
-		let results = self._database.executeQuery(querySQL, withArgumentsInArray: nil)!
-		
-		var paths = [STPath]()
-		
-		while (results.next() && results.columnNameToIndexMap.count != 0) {
-			let data = results.dataForColumn("asbinary(track_geometry)")
-			let reader = WKBByteReader(data: data)
-			reader.byteOrder = Int(CFByteOrderBigEndian.rawValue)
+	func getPathsInRegion(region: MKCoordinateRegion, completion: ([STPath] -> Void)){
+		_databaseQueue.inDatabase({
+			database in
+			let xMin = region.center.longitude - region.span.longitudeDelta / 2
+			let yMin = region.center.latitude - region.span.latitudeDelta / 2
+			let xMax = region.center.longitude + region.span.longitudeDelta / 2
+			let yMax = region.center.latitude + region.span.latitudeDelta / 2
 			
-			let geometry = WKBGeometryReader.readGeometryWithReader(reader) as! WKBLineString
-			let path = STPath(lineString: geometry)
-			paths.append(path)
-		}
-		
-		return paths
+			let screenPolygon = "GeomFromText('POLYGON((\(xMin) \(yMin), \(xMin) \(yMax), \(xMax) \(yMax), \(xMax) \(yMin)))')"
+			
+			
+			let querySQL = "SELECT track_id, AsBinary(track_geometry) FROM tracks WHERE MbrOverlaps(track_geometry, " + screenPolygon + ")"
+			let results = self._database.executeQuery(querySQL, withArgumentsInArray: nil)!
+			
+			var paths = [STPath]()
+			
+			while (results.next() && results.columnNameToIndexMap.count != 0) {
+				let data = results.dataForColumn("asbinary(track_geometry)")
+				let reader = WKBByteReader(data: data)
+				reader.byteOrder = Int(CFByteOrderBigEndian.rawValue)
+				
+				let geometry = WKBGeometryReader.readGeometryWithReader(reader) as! WKBLineString
+				let path = STPath(lineString: geometry)
+				paths.append(path)
+			}
+			
+			completion(paths)
+		})
 	}
 }

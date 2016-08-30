@@ -14,6 +14,7 @@ class ViewController: UIViewController {
 	@IBOutlet var mapView: MKMapView!
 	let locationManager = CLLocationManager()
 	var shouldRecordCoordinate = false
+	var fogOverlayRenderer: RFTFogOverlayRenderer!
 	let path = STPath()
 	
 	override func viewDidLoad() {
@@ -27,6 +28,10 @@ class ViewController: UIViewController {
 	
 	private func configureMapView() {
 		self.mapView.delegate = self
+		
+		//set up overlay
+		let fogOverlay = RFTFogOverlay()
+		self.mapView.addOverlay(fogOverlay);
 	}
 	
 	private func configureLocationManager() {
@@ -46,8 +51,7 @@ class ViewController: UIViewController {
 	
 	func applicationWillTerminate(notification: NSNotification) {
 		print("Application is terminating, saving data.")
-		let success = STDatabaseManager.sharedManager().savePath(path)
-		print(success)
+		STDatabaseManager.sharedManager().savePath(path)
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -58,7 +62,20 @@ class ViewController: UIViewController {
 
 extension ViewController: MKMapViewDelegate {
 	func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-		print(STDatabaseManager.sharedManager().pathsInRegion(self.mapView.region))
+		
+	}
+	
+	func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+		if overlay is RFTFogOverlay {
+			if self.fogOverlayRenderer == nil {
+				self.fogOverlayRenderer = RFTFogOverlayRenderer(overlay: overlay)
+				self.fogOverlayRenderer.mapView = self.mapView
+			}
+			
+			return self.fogOverlayRenderer
+		} else {
+			return MKOverlayRenderer(overlay: overlay)
+		}
 	}
 }
 

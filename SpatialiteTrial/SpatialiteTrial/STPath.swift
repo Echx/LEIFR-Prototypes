@@ -32,6 +32,10 @@ class STPath: NSObject {
 		lineString.addPoint(point)
 	}
 	
+	func points() -> NSMutableArray {
+		return lineString.points
+	}
+	
 	func WKTString() -> String{
 		let array = NSMutableArray()
 		for point in lineString.points {
@@ -40,5 +44,31 @@ class STPath: NSObject {
 		
 		let pointsString = array.componentsJoinedByString(", ")
 		return "LINESTRINGZM(" + pointsString + ")"
+	}
+}
+
+extension WKBPoint {
+	var latitude: Double {
+		get {
+			return Double(self.y)
+		}
+	}
+	
+	var longitude: Double {
+		get {
+			return Double(self.x)
+		}
+	}
+	
+	var altitude: Double {
+		get {
+			return Double(self.z)
+		}
+	}
+	
+	var time:NSDate {
+		get {
+			return NSDate(timeIntervalSince1970: Double(self.m))
+		}
 	}
 }
