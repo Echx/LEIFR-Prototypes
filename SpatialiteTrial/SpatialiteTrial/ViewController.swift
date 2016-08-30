@@ -46,22 +46,20 @@ class ViewController: UIViewController {
 	
 	func applicationWillTerminate(notification: NSNotification) {
 		print("Application is terminating, saving data.")
-		let paths = STDatabaseManager.sharedManager().insertPath(path)
-		print(paths)
+		let success = STDatabaseManager.sharedManager().savePath(path)
+		print(success)
 	}
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
-	
-	@IBAction func queryResult() {
-		STDatabaseManager.sharedManager().pathsInRegion(self.mapView.region)
-	}
 }
 
 extension ViewController: MKMapViewDelegate {
-	
+	func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+		print(STDatabaseManager.sharedManager().pathsInRegion(self.mapView.region))
+	}
 }
 
 extension ViewController: CLLocationManagerDelegate {

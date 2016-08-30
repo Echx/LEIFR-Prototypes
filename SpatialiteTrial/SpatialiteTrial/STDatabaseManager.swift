@@ -49,7 +49,7 @@ class STDatabaseManager: NSObject {
 		}
 	}
 	
-	func insertPath(path: STPath) -> Bool {
+	func savePath(path: STPath) -> Bool {
 		let insertSQL = "INSERT OR REPLACE INTO tracks (track_geometry) VALUES (LineStringFromText('\(path.WKTString())'));"
 		return self._database.executeStatements(insertSQL)
 	}
