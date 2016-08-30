@@ -49,7 +49,6 @@ class STDatabaseManager: NSObject {
 	}
 	
 	
-	
 	func test() {
 		let databasePath = NSBundle.mainBundle().pathForResource("test", ofType: "sqlite")!
 		if let database = FMDatabase(path: databasePath) {
@@ -68,5 +67,15 @@ class STDatabaseManager: NSObject {
 				}
 			}
 		}
+	}
+	
+	class func WKTStringForLineString(lineString: WKBLineString) -> String{
+		let array = NSMutableArray()
+		for point in lineString.points {
+			array.addObject("\(point.x as NSDecimalNumber) \(point.y as NSDecimalNumber) \(point.z as NSDecimalNumber) \(point.m as NSDecimalNumber)")
+		}
+		
+		let pointsString = array.componentsJoinedByString(", ")
+		return "LINESTRINGZM(" + pointsString + ")"
 	}
 }

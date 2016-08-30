@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
-	var database:COpaquePointer = nil
+	var database:FMDatabase!
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let manager = STDatabaseManager.sharedManager()
 		manager.openDatabase()
 		let database = manager.database()
-		
+		self.database = database
 //		let insertSQL = "INSERT INTO tracks (track_geometry) VALUES (GeomFromText('LINESTRING(689001.702718 4798988.808442, 689027.602471 4798996.686619, 689029.54214 4798989.585948, 689029.54214 4798989.585948)'));"
 //		if database.executeStatements(insertSQL) {
 //			print("inserted!")
@@ -31,18 +31,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //			print("not inserted!")
 //		}
 		
-		let querySQL = "SELECT track_id, AsText(track_geometry) FROM tracks WHERE GeometryType(track_geometry) = 'LINESTRING'"
+		insert()
+		query()
+		
+		return true
+	}
+	
+	func query() {
+		let querySQL = "SELECT track_id, AsBinary(track_geometry) FROM tracks"
 		let results = database.executeQuery(querySQL, withArgumentsInArray: nil)
 		
 		if ((results?.next()) != nil) {
 			print(results.columnNameToIndexMap)
 			print(results.stringForColumn("track_id"))
-			print(results.stringForColumn("astext(track_geometry)"))
+			let data = results.dataForColumn("asbinary(track_geometry)")
+			let reader = WKBByteReader(data: data)
+			reader.byteOrder = Int(CFByteOrderBigEndian.rawValue)
+			
+			let geometry = WKBGeometryReader.readGeometryWithReader(reader) as! WKBLineString
+			for point in geometry.points {
+				print("(\(point.x as NSDecimalNumber), \(point.y as NSDecimalNumber), \(point.z as NSDecimalNumber), \(point.m as NSDecimalNumber))")
+			}
 		} else {
 			print("Record Not Found")
 		}
+	}
+	
+	func insert() {
+		let lineString = WKBLineString(hasZ: true, andHasM: true)
 		
-		return true
+		for i in 0..<10 {
+			let point = WKBPoint(hasZ: true, andHasM: true, andX: NSDecimalNumber(double: Double(10 * i)), andY: 45)
+			point.m = NSDecimalNumber(integer: i)
+			point.z = NSDecimalNumber(integer: 0)
+			lineString.addPoint(point)
+		}
+		
+		let insertSQL = "INSERT OR REPLACE INTO tracks (track_geometry) VALUES (GeomFromText('\(STDatabaseManager.WKTStringForLineString(lineString))'));"
+		if database.executeStatements(insertSQL) {
+			print("inserted!")
+		} else {
+			print("not inserted!")
+		}
 	}
 	
 	func applicationWillResignActive(application: UIApplication) {

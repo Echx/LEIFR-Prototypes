@@ -14,6 +14,7 @@
 		0C0CD3BE1D6B7FC500BCD922 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CD3B61D6B7FC500BCD922 /* FMDatabaseQueue.m */; };
 		0C0CD3BF1D6B7FC500BCD922 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CD3B91D6B7FC500BCD922 /* FMResultSet.m */; };
 		0C0CD3C01D6B7FC500BCD922 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CD3BA1D6B7FC500BCD922 /* Info.plist */; };
+		0C1FDAF31D75DF7000F8AAF5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1FDAF21D75DF7000F8AAF5 /* MapKit.framework */; };
 		0C45B82F1D6C70AA005C0089 /* STDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C45B82E1D6C70AA005C0089 /* STDatabaseManager.swift */; };
 		0C45B8311D6C72A5005C0089 /* schema.sql in Resources */ = {isa = PBXBuildFile; fileRef = 0C45B8301D6C72A5005C0089 /* schema.sql */; };
 		0C45B8331D6C8127005C0089 /* default.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 0C45B8321D6C7FBB005C0089 /* default.sqlite */; };
@@ -50,6 +51,7 @@
 		0C4A94931D69EAC600A073B3 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4A94921D69EAC600A073B3 /* libxml2.2.tbd */; };
 		0C4A94951D69EADD00A073B3 /* libcharset.1.0.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4A94941D69EADD00A073B3 /* libcharset.1.0.0.tbd */; };
 		0C4A94971D69EAF200A073B3 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4A94961D69EAF200A073B3 /* libiconv.tbd */; };
+		CB1440E2EFCD9796D2FD26BC /* libPods-SpatialiteTrial.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE191FBBF512BDAF3936D252 /* libPods-SpatialiteTrial.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,7 @@
 		0C0CD3B81D6B7FC500BCD922 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		0C0CD3B91D6B7FC500BCD922 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		0C0CD3BA1D6B7FC500BCD922 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0C1FDAF21D75DF7000F8AAF5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0C45B82E1D6C70AA005C0089 /* STDatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STDatabaseManager.swift; sourceTree = "<group>"; };
 		0C45B8301D6C72A5005C0089 /* schema.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.sql; sourceTree = "<group>"; };
 		0C45B8321D6C7FBB005C0089 /* default.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.sqlite; sourceTree = "<group>"; };
@@ -485,6 +488,9 @@
 		0C4A94941D69EADD00A073B3 /* libcharset.1.0.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcharset.1.0.0.tbd; path = usr/lib/libcharset.1.0.0.tbd; sourceTree = SDKROOT; };
 		0C4A94961D69EAF200A073B3 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		0C4A94991D69EB2900A073B3 /* SpatialiteTrial-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SpatialiteTrial-Bridging-Header.h"; sourceTree = "<group>"; };
+		5FD0A588DC3475BBF5527074 /* Pods-SpatialiteTrial.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpatialiteTrial.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpatialiteTrial/Pods-SpatialiteTrial.debug.xcconfig"; sourceTree = "<group>"; };
+		AE191FBBF512BDAF3936D252 /* libPods-SpatialiteTrial.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpatialiteTrial.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2AFD1A28CCB52812EF45BD7 /* Pods-SpatialiteTrial.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpatialiteTrial.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpatialiteTrial/Pods-SpatialiteTrial.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -492,6 +498,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C1FDAF31D75DF7000F8AAF5 /* MapKit.framework in Frameworks */,
 				0C4A94971D69EAF200A073B3 /* libiconv.tbd in Frameworks */,
 				0C4A94951D69EADD00A073B3 /* libcharset.1.0.0.tbd in Frameworks */,
 				0C4A94931D69EAC600A073B3 /* libxml2.2.tbd in Frameworks */,
@@ -503,6 +510,7 @@
 				0C4A94891D69E88900A073B3 /* libgeos_c.a in Frameworks */,
 				0C4A948D1D69E88900A073B3 /* mod_spatialite.a in Frameworks */,
 				0C4A948A1D69E88900A073B3 /* libproj.a in Frameworks */,
+				CB1440E2EFCD9796D2FD26BC /* libPods-SpatialiteTrial.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,6 +545,8 @@
 				0C4A92BA1D69E88800A073B3 /* libspatialite */,
 				0C4A92A71D69E2AC00A073B3 /* SpatialiteTrial */,
 				0C4A92A61D69E2AC00A073B3 /* Products */,
+				504EBEEE9C510225A8AA9353 /* Pods */,
+				D6EA62CAD652FB994B928618 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1317,6 +1327,24 @@
 			name = libs;
 			sourceTree = "<group>";
 		};
+		504EBEEE9C510225A8AA9353 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5FD0A588DC3475BBF5527074 /* Pods-SpatialiteTrial.debug.xcconfig */,
+				F2AFD1A28CCB52812EF45BD7 /* Pods-SpatialiteTrial.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D6EA62CAD652FB994B928618 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0C1FDAF21D75DF7000F8AAF5 /* MapKit.framework */,
+				AE191FBBF512BDAF3936D252 /* libPods-SpatialiteTrial.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1324,9 +1352,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0C4A92B71D69E2AC00A073B3 /* Build configuration list for PBXNativeTarget "SpatialiteTrial" */;
 			buildPhases = (
+				34D7E7D8B8E3B72BC8367341 /* Check Pods Manifest.lock */,
 				0C4A92A11D69E2AC00A073B3 /* Sources */,
 				0C4A92A21D69E2AC00A073B3 /* Frameworks */,
 				0C4A92A31D69E2AC00A073B3 /* Resources */,
+				98C5C3C1FD9188C7698F9F47 /* Embed Pods Frameworks */,
+				DC583D1ED7C987641CDA8740 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1403,6 +1434,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		34D7E7D8B8E3B72BC8367341 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		98C5C3C1FD9188C7698F9F47 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SpatialiteTrial/Pods-SpatialiteTrial-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DC583D1ED7C987641CDA8740 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SpatialiteTrial/Pods-SpatialiteTrial-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0C4A92A11D69E2AC00A073B3 /* Sources */ = {
@@ -1529,6 +1608,7 @@
 		};
 		0C4A92B81D69E2AC00A073B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5FD0A588DC3475BBF5527074 /* Pods-SpatialiteTrial.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1548,6 +1628,7 @@
 		};
 		0C4A92B91D69E2AC00A073B3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2AFD1A28CCB52812EF45BD7 /* Pods-SpatialiteTrial.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
